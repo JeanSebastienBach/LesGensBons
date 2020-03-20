@@ -1,0 +1,241 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=1.5cm, bottom=3.5cm, left=1.5cm, right=1.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{french}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{sidecap}
+\sidecaptionvpos{figure}{c}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{numprint}
+\usepackage[bottom]{footmisc}
+\usepackage[justification=centering]{caption}
+\usepackage[french,frenchkw,boxed,ruled,lined]{algorithm2e}
+\SetKw{KwDe}{de}
+\SetKw{KwOu}{ou}
+\SetKw{KwEt}{et}
+\SetKw{Kwrenv}{renvoyer}
+\SetKwInput{Variables}{Variables}
+\SetKwInput{Variable}{Variable}
+\usepackage{xifthen}
+\usepackage{colortbl}
+\definecolor{green}{rgb}{0.0, 0.5, 0.0}
+\usepackage{array,multirow}
+\usepackage{wrapfig}
+\usepackage{bussproofs}
+
+\newcommand{\exo}[1]{\Large \textbf{Exercice \numprint{#1}} \vspace{10px} \normalsize}
+\newcommand\tab[1][12pt]{\hspace*{#1}}
+
+% INFOS
+\author{Jérémie ROUX (L3 Groupe C)}
+\title{HLIN602 - Logique 2 - TD5}
+\date{2019 - 2020}
+
+\setlength{\parindent}{0cm}
+
+\begin{document}
+
+\maketitle
+
+\exo{1}
+
+1. $(\forall x.P(x))\Rightarrow \exists y.P(y)$\\\tab 
+$\rightsquigarrow \exists x.P(x)\Rightarrow \exists y.P(y)$\\\tab
+$\rightsquigarrow \exists x.\exists y.P(x)\Rightarrow P(y)$
+
+\vspace{13px}
+
+2. Une forme polie de $(\forall x.\exists y.R(x,y))\Rightarrow \exists x.\forall y.R(x,y)$ est\\\tab
+$(\forall x.\exists y.R(x,y))\Rightarrow \exists z.\forall t.R(z,t)$\\\tab
+$\rightsquigarrow \exists x.(\exists y.R(x,y))\Rightarrow \exists z.\forall t.R(z,t)$\\\tab
+$\rightsquigarrow \exists x.\forall y.R(x,y)\Rightarrow \exists z.\forall t.R(z,t)$\\\tab
+$\rightsquigarrow \exists x.\forall y.\exists z.R(x,y)\Rightarrow \forall t.R(z,t)$\\\tab
+$\rightsquigarrow \exists x.\forall y.\exists z.\forall t.R(x,y)\Rightarrow R(z,t)$
+
+\vspace{13px}
+
+3. Une forme polie de $(\exists x.\forall y.R(x,y))\Rightarrow \forall x.\exists y.R(x,y)$ est\\\tab
+$(\exists x.\forall y.R(x,y))\Rightarrow \forall z.\exists t.R(z,t)$\\\tab
+$\rightsquigarrow \forall x.(\forall y.R(x,y))\Rightarrow \forall z.\exists t.R(z,t)$\\\tab
+$\rightsquigarrow \forall x.\exists y.R(x,y)\Rightarrow \forall z.\exists t.R(z,t)$\\\tab
+$\rightsquigarrow \forall x.\exists y.\forall z.R(x,y)\Rightarrow \exists t.R(z,t)$\\\tab
+$\rightsquigarrow \forall x.\exists y.\forall z.\exists t.R(x,y)\Rightarrow R(z,t)$
+
+\vspace{13px}
+
+4. Une forme polie de $(P(x) \Rightarrow \forall x.Q(x)) \Rightarrow ((\exists x.P(x))  \Rightarrow \forall x.Q(x))$ est\\\tab
+$(P(a) \Rightarrow \forall x.Q(x)) \Rightarrow ((\exists y.P(y))  \Rightarrow \forall z.Q(z))$\\\tab
+$\rightsquigarrow (\forall x.P(a) \Rightarrow Q(x)) \Rightarrow ((\exists y.P(y))  \Rightarrow \forall z.Q(z))$\\\tab
+$\rightsquigarrow \exists x.(P(a) \Rightarrow Q(x)) \Rightarrow ((\exists y.P(y))  \Rightarrow \forall z.Q(z))$\\\tab
+$\rightsquigarrow \exists x.(P(a) \Rightarrow Q(x)) \Rightarrow (\forall y.P(y)  \Rightarrow \forall z.Q(z))$\\\tab
+$\rightsquigarrow \exists x.(P(a) \Rightarrow Q(x)) \Rightarrow (\forall y.\forall z.P(y)  \Rightarrow Q(z))$\\\tab
+$\rightsquigarrow \exists x.(P(a) \Rightarrow Q(x)) \Rightarrow \forall y.\forall z.(P(y)  \Rightarrow Q(z))$\\\tab
+$\rightsquigarrow \exists x.\forall y.\forall z.(P(a) \Rightarrow Q(x)) \Rightarrow (P(y)  \Rightarrow Q(z))$
+
+\vspace{13px}
+
+5. Une forme polie de $(\exists x.\forall y.(\exists z.S(x,y,z)) \wedge R(x,y)) \Rightarrow \exists y.(\forall x.S(x,y,z)) \wedge \exists x.R(x,y)$ est\\\tab
+$(\exists x.\forall y.(\exists z.S(x,y,z)) \wedge R(x,y)) \Rightarrow \exists t.(\forall u.S(u,t,a)) \wedge \exists v.R(v,t)$\\\tab
+$\rightsquigarrow (\exists x.\forall y.\exists z.S(x,y,z) \wedge R(x,y)) \Rightarrow \exists t.(\forall u.S(u,t,a)) \wedge \exists v.R(v,t)$\\\tab
+$\rightsquigarrow \forall x.\exists y.\forall z.(S(x,y,z) \wedge R(x,y)) \Rightarrow \exists t.(\forall u.S(u,t,a)) \wedge \exists v.R(v,t)$\\\tab
+$\rightsquigarrow \forall x.\exists y.\forall z.(S(x,y,z) \wedge R(x,y)) \Rightarrow \exists t.\forall u.S(u,t,a) \wedge \exists v.R(v,t)$\\\tab
+$\rightsquigarrow \forall x.\exists y.\forall z.(S(x,y,z) \wedge R(x,y)) \Rightarrow \exists t.\forall u.\exists v.S(u,t,a) \wedge R(v,t)$\\\tab
+$\rightsquigarrow \forall x.\exists y.\forall z.\exists t.\forall u.\exists v.(S(x,y,z) \wedge R(x,y)) \Rightarrow S(u,t,a) \wedge R(v,t)$
+
+\newpage
+
+\exo{2}
+
+1.
+
+\begin{prooftree}
+    \AxiomC{$$}
+    \RightLabel{\scriptsize$ax$}
+    \UnaryInfC{$\Phi\vdash\Phi',\Phi$}
+    \RightLabel{\scriptsize$\forall_{d}$}
+    \UnaryInfC{$\Phi\vdash\Phi',\forall x.\Phi$}
+    \AxiomC{$$}
+    \RightLabel{\scriptsize$ax$}
+    \UnaryInfC{$\Phi,\Phi'\vdash\Phi'$}
+    \RightLabel{\scriptsize$\Rightarrow_{g}$}
+    \BinaryInfC{$(\forall x.\Phi)\Rightarrow \Phi',\Phi\vdash\Phi'$}
+    \RightLabel{\scriptsize$\exists_{g}$}
+    \UnaryInfC{$(\forall x.\Phi)\Rightarrow \Phi',\exists y.\Phi\vdash\Phi'$}
+    \RightLabel{\scriptsize$\Rightarrow_{d}$}
+    \UnaryInfC{$(\forall x.\Phi)\Rightarrow \Phi'\vdash\exists y.\Phi\Rightarrow\Phi'$}
+    \RightLabel{\scriptsize$\Rightarrow_{d}$}
+    \UnaryInfC{$\vdash((\forall x.\Phi)\Rightarrow \Phi')\Rightarrow \exists y.\Phi\Rightarrow\Phi'$}
+\end{prooftree}
+        
+2.
+
+\begin{prooftree}
+    \AxiomC{$$}
+    \RightLabel{\scriptsize$ax$}
+    \UnaryInfC{$\Phi\vdash\Phi',\Phi$}
+    \AxiomC{$$}
+    \RightLabel{\scriptsize$ax$}
+    \UnaryInfC{$\Phi,\Phi'\vdash\Phi'$}
+    \RightLabel{\scriptsize$\Rightarrow_{g}$}
+    \BinaryInfC{$\Phi\Rightarrow \Phi', \Phi\vdash\Phi'$}
+    \RightLabel{\scriptsize$\exists_{g}$}
+    \UnaryInfC{$(\exists x.\Phi\Rightarrow \Phi'), \Phi\vdash\Phi'$}
+    \RightLabel{\scriptsize$\forall_{g}$}
+    \UnaryInfC{$(\exists x.\Phi\Rightarrow \Phi'), (\forall y.\Phi)\vdash\Phi'$}
+    \RightLabel{\scriptsize$\Rightarrow_{d}$}
+    \UnaryInfC{$(\exists x.\Phi\Rightarrow \Phi')\vdash (\forall y.\Phi)\Rightarrow\Phi'$}
+    \RightLabel{\scriptsize$\Rightarrow_{d}$}
+    \UnaryInfC{$\vdash(\exists x.\Phi\Rightarrow \Phi')\Rightarrow (\forall y.\Phi)\Rightarrow\Phi'$}
+\end{prooftree}
+
+\vspace{60pt}
+
+\exo{4}
+
+1.  Une forme polie de $\forall x.P(x)\Rightarrow \exists y.\forall x.R(x,y)$ est $\forall x.P(x)\Rightarrow \exists y.\forall z.R(z,y)$\\\tab
+\\\tab
+$s(\forall x.P(x)\Rightarrow \exists y.\forall z.R(z,y))$\\\tab
+$= h(\forall x.P(x))\Rightarrow s(\exists y.\forall z.R(z,y))$\\\tab
+$= h(P(x))[f()/x]\Rightarrow s(\exists y.\forall z.R(z,y))$\\\tab
+$= h(P(x))[a/x]\Rightarrow s(\exists y.\forall z.R(z,y))$\\\tab
+$= P(a)\Rightarrow s(\exists y.\forall z.R(z,y))$\\\tab
+$= P(a)\Rightarrow s(\forall z.R(z,y))[g()/y]$\\\tab
+$= P(a)\Rightarrow s(\forall z.R(z,y))[b/y]$\\\tab
+$= P(a)\Rightarrow s(R(z,y))[b/y]$\\\tab
+$= P(a)\Rightarrow R(z,b)$\\\tab
+Formule skolémisée : $\forall z.P(a)\Rightarrow R(z,b)$\\\tab
+\\\tab
+$P(a)\Rightarrow R(z,b)$\\\tab
+$= \neg P(a)\lor R(z,b)$\\\tab
+Ensemble des clauses : $S = \{\neg P(a)\lor R(z,b)\}$\\
+
+\newpage
+
+2.  Une forme polie de $(\exists x.\forall y.R(x,y)) \Rightarrow \forall y.\exists x.R(x,y)$ est $(\exists x.\forall y.R(x,y)) \Rightarrow \forall z.\exists t.R(t,z)$\\\tab
+\\\tab
+$s((\exists x.\forall y.R(x,y)) \Rightarrow \forall z.\exists t.R(t,z))$\\\tab
+$= h(\exists x.\forall y.R(x,y)) \Rightarrow s(\forall z.\exists t.R(t,z))$\\\tab
+$= h(\forall y.R(x,y)) \Rightarrow s(\forall z.\exists t.R(t,z))$\\\tab
+$= h(R(x,y))[f(x)/y] \Rightarrow s(\forall z.\exists t.R(t,z))$\\\tab
+$= R(x,f(x)) \Rightarrow s(\forall z.\exists t.R(t,z))$\\\tab
+$= R(x,f(x)) \Rightarrow s(\exists t.R(t,z))$\\\tab
+$= R(x,f(x)) \Rightarrow s(R(t,z))[g(z)/t]$\\\tab
+$= R(x,f(x)) \Rightarrow R(g(z),z)$\\\tab
+Formule skolémisée et herbrandisée : $\exists x.\forall z.R(x,f(x)) \Rightarrow R(g(z),z)$\\\tab
+\\\tab
+$R(x,f(x)) \Rightarrow R(g(z),z)$\\\tab
+$= \neg R(x,f(x))\lor R(g(z),z)$\\\tab
+Ensemble des clauses : $S = \{\neg R(x,f(x))\lor R(g(z),z)\}$\\
+
+\vspace{6px}
+
+3.  Une forme polie de $((\exists x.P(x) \Rightarrow Q(x)) \lor \forall y.P(y)) \land \forall x.\exists y.Q(y) \Rightarrow P(x)$ est\\\tab
+$((\exists x.P(x) \Rightarrow Q(x)) \lor \forall y.P(y)) \land \forall z.\exists t.Q(t) \Rightarrow P(z)$\\\tab
+\\\tab
+$s(((\exists x.P(x) \Rightarrow Q(x)) \lor \forall y.P(y)) \land \forall z.\exists t.Q(t) \Rightarrow P(z))$\\\tab
+$= (s((\exists x.P(x) \Rightarrow Q(x)) \lor \forall y.P(y))) \land s(\forall z.\exists t.Q(t) \Rightarrow P(z))$\\\tab
+$= ((s(\exists x.P(x) \Rightarrow Q(x)) \lor s(\forall y.P(y))) \land h(\forall z.\exists t.Q(t)) \Rightarrow s(\forall z.P(z))$\\\tab
+$= ((h(\exists x.P(x)) \Rightarrow s(\exists x.Q(x))) \lor s(\forall y.P(y))) \land h(\forall z.\exists t.Q(t)) \Rightarrow s(\forall z.P(z))$\\\tab
+$= ((h(P(x)) \Rightarrow s(Q(x))[f()/x]) \lor s(P(y))) \land h(\exists t.Q(t))[g()/z] \Rightarrow s(P(z))$\\\tab
+$= ((h(P(x)) \Rightarrow s(Q(x))[a/x]) \lor s(P(y))) \land h(\exists t.Q(t))[b/z] \Rightarrow s(P(z))$\\\tab
+$= ((P(x) \Rightarrow s(Q(x))[a/x]) \lor P(y)) \land h(Q(t))[b/z] \Rightarrow P(z)$\\\tab
+$= ((P(x) \Rightarrow Q(a)) \lor P(y)) \land Q(t) \Rightarrow P(z)$\\\tab
+Formule skolémisée et herbrandisée : $\exists x.\forall y.\forall z.\exists t.((P(x) \Rightarrow Q(a)) \lor P(y)) \land Q(t) \Rightarrow P(z)$\\\tab
+\\\tab
+$((P(x) \Rightarrow Q(a)) \lor P(y)) \land Q(t) \Rightarrow P(z)$\\\tab
+$= ((P(x) \Rightarrow Q(a)) \lor P(y)) \land \neg Q(t) \lor P(z)$\\\tab
+$= ((\neg P(x) \lor Q(a)) \lor P(y)) \land \neg Q(t) \lor P(z)$\\\tab
+$= (\neg P(x) \lor Q(a) \lor P(y)) \land (\neg Q(t) \lor P(z))$\\\tab
+Ensemble des clauses : $S = \{\neg P(x) \lor Q(a) \lor P(y), \neg Q(t) \lor P(z)\}$\\
+
+
+\exo{6}
+
+
+1. $\{g(f(x),f(y)) = g(f(f(a)),f(z))\} \hookrightarrow_{decompose}$\\\tab
+$\{f(x)=f(f(a)), f(y)=f(z)\} \hookrightarrow_{decompose}$\\\tab
+$\{x=f(a), y=z\}$;\\\tab
+mgu$(g(f(x),f(y)),g(f(f(a)),f(z))) = [z/y,f(a)/x]$\\
+
+2. $\{h(x,f(a),x) = h(h(a,b,y),f(y),h(a,b,a))\} \hookrightarrow_{decompose}$\\\tab
+$\{x=h(a,b,y), f(a)=f(y), x=h(a,b,a)\} \hookrightarrow_{decompose}$\\\tab
+$\{x=h(a,b,y), a=y, x=h(a,b,a)\} \hookrightarrow_{eliminate}$\\\tab
+$\{x=h(y,b,y), a=y, x=h(y,b,y)\} \hookrightarrow_{doublon}$\\\tab
+$\{a=y, x=h(y,b,y)\}$;\\\tab
+mgu$(h(x,f(a),x),h(h(a,b,y),f(y),h(a,b,a))) = [y/a,h(y,b,y)/x]$\\
+
+3. $\{g(y,f(f(x))) = g(f(a),y)\} \hookrightarrow_{decompose}$\\\tab
+$\{y=f(a),f(f(x))=y\} \hookrightarrow_{eliminate}$\\\tab
+$\{y=f(a),f(f(x))=f(a)\} \hookrightarrow_{decompose}$\\\tab
+$\{y=f(a),f(x)=a\} \hookrightarrow_{swap}$\\\tab
+$\{y=f(a),a=f(x)\}$;\\\tab
+mgu$(g(y,f(f(x))),g(f(a),y)) = [f(a)/y,f(x)/a]$\\
+
+4. $\{h(a,x,f(x)) = h(a,y,y)\} \hookrightarrow_{decompose}$\\\tab
+$\{a=a,x=y,f(x)=y\} \hookrightarrow_{delete}$\\\tab
+$\{x=y,f(x)=y\} \hookrightarrow_{conflict}$\\\tab
+$\bot$;\\\tab
+$h(a,x,f(x))$ et $h(a,y,y)$ ne sont pas unifiables.\\
+
+5. Je suppose que l'égalité entre les 3 termes équivaut à une égalité deux à deux entre chaque terme.\\\tab
+$\{g(x,g(y,z)) = g(g(a,b),x), g(x,g(y,z)) = g(x,g(a,z)), g(g(a,b),x) = g(x,g(a,z))\} \hookrightarrow_{decompose}$\\\tab
+$\{x=g(a,b), g(y,z)=x, x=x, g(y,z)=g(a,z), g(a,b)=x, x=g(a,z)\} \hookrightarrow_{decompose}$\\\tab
+$\{x=g(a,b), g(y,z)=x, x=x, y=a, z=z, g(a,b)=x, x=g(a,z)\} \hookrightarrow_{delete}$\\\tab
+$\{x=g(a,b), g(y,z)=x, y=a, g(a,b)=x, x=g(a,z)\} \hookrightarrow_{swap}$\\\tab
+$\{x=g(a,b), g(y,z)=x, y=a, x=g(a,b), x=g(a,z)\} \hookrightarrow_{doublon}$\\\tab
+$\{x=g(a,b), g(y,z)=x, y=a, x=g(a,z)\} \hookrightarrow_{eliminate}$\\\tab
+$\{x=g(a,b), g(a,z)=x, y=a, x=g(a,z)\} \hookrightarrow_{swap}$\\\tab
+$\{x=g(a,b), x=g(a,z), y=a, x=g(a,z)\} \hookrightarrow_{doublon}$\\\tab
+$\{x=g(a,b), x=g(a,z), y=a\}$;\\\tab
+mgu$(g(x,g(y,z)), g(g(a,b),x), g(x,g(a,z))) = [y/a, g(a,b)/x, g(a,z)/x]$\\
+
+\end{document}
