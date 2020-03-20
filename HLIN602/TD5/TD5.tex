@@ -144,19 +144,18 @@ $\rightsquigarrow \forall x.\exists y.\forall z.\exists t.\forall u.\exists v.(S
 1.  Une forme polie de $\forall x.P(x)\Rightarrow \exists y.\forall x.R(x,y)$ est $\forall x.P(x)\Rightarrow \exists y.\forall z.R(z,y)$\\\tab
 \\\tab
 $s(\forall x.P(x)\Rightarrow \exists y.\forall z.R(z,y))$\\\tab
-$= h(\forall x.P(x))\Rightarrow s(\exists y.\forall z.R(z,y))$\\\tab
-$= h(P(x))[f()/x]\Rightarrow s(\exists y.\forall z.R(z,y))$\\\tab
-$= h(P(x))[a/x]\Rightarrow s(\exists y.\forall z.R(z,y))$\\\tab
-$= P(a)\Rightarrow s(\exists y.\forall z.R(z,y))$\\\tab
-$= P(a)\Rightarrow s(\forall z.R(z,y))[g()/y]$\\\tab
-$= P(a)\Rightarrow s(\forall z.R(z,y))[b/y]$\\\tab
-$= P(a)\Rightarrow s(R(z,y))[b/y]$\\\tab
-$= P(a)\Rightarrow R(z,b)$\\\tab
-Formule skolémisée : $\forall z.P(a)\Rightarrow R(z,b)$\\\tab
+$s(P(x)\Rightarrow \exists y.\forall z.R(z,y))$\\\tab
+$= h(P(x))\Rightarrow s(\exists y.\forall z.R(z,y))$\\\tab
+$= P(x)\Rightarrow s(\exists y.\forall z.R(z,y))$\\\tab
+$= P(x)\Rightarrow s(\forall z.R(z,y))[g()/y]$\\\tab
+$= P(x)\Rightarrow s(\forall z.R(z,y))[a/y]$\\\tab
+$= P(x)\Rightarrow s(R(z,y))[a/y]$\\\tab
+$= P(x)\Rightarrow R(z,a)$\\\tab
+Formule skolémisée : $\forall x.\forall z.P(x)\Rightarrow R(z,a)$\\\tab
 \\\tab
-$P(a)\Rightarrow R(z,b)$\\\tab
-$= \neg P(a)\lor R(z,b)$\\\tab
-Ensemble des clauses : $S = \{\neg P(a)\lor R(z,b)\}$\\
+$P(x)\Rightarrow R(z,a)$\\\tab
+$= \neg P(x)\lor R(z,a)$\\\tab
+Ensemble des clauses : $S = \{\neg P(x)\lor R(z,a)\}$\\
 
 \newpage
 
@@ -183,20 +182,20 @@ $((\exists x.P(x) \Rightarrow Q(x)) \lor \forall y.P(y)) \land \forall z.\exists
 \\\tab
 $s(((\exists x.P(x) \Rightarrow Q(x)) \lor \forall y.P(y)) \land \forall z.\exists t.Q(t) \Rightarrow P(z))$\\\tab
 $= (s((\exists x.P(x) \Rightarrow Q(x)) \lor \forall y.P(y))) \land s(\forall z.\exists t.Q(t) \Rightarrow P(z))$\\\tab
-$= ((s(\exists x.P(x) \Rightarrow Q(x)) \lor s(\forall y.P(y))) \land h(\forall z.\exists t.Q(t)) \Rightarrow s(\forall z.P(z))$\\\tab
-$= ((h(\exists x.P(x)) \Rightarrow s(\exists x.Q(x))) \lor s(\forall y.P(y))) \land h(\forall z.\exists t.Q(t)) \Rightarrow s(\forall z.P(z))$\\\tab
-$= ((h(P(x)) \Rightarrow s(Q(x))[f()/x]) \lor s(P(y))) \land h(\exists t.Q(t))[g()/z] \Rightarrow s(P(z))$\\\tab
-$= ((h(P(x)) \Rightarrow s(Q(x))[a/x]) \lor s(P(y))) \land h(\exists t.Q(t))[b/z] \Rightarrow s(P(z))$\\\tab
-$= ((P(x) \Rightarrow s(Q(x))[a/x]) \lor P(y)) \land h(Q(t))[b/z] \Rightarrow P(z)$\\\tab
-$= ((P(x) \Rightarrow Q(a)) \lor P(y)) \land Q(t) \Rightarrow P(z)$\\\tab
-Formule skolémisée et herbrandisée : $\exists x.\forall y.\forall z.\exists t.((P(x) \Rightarrow Q(a)) \lor P(y)) \land Q(t) \Rightarrow P(z)$\\\tab
+$= (s((P(x) \Rightarrow Q(x)) \lor \forall y.P(y))) \land s(\exists t.Q(t) \Rightarrow P(z))$\\\tab
+$= ((h(P(x)) \Rightarrow s(Q(x)) \lor s(\forall y.P(y))) \land s(Q(t) \Rightarrow P(z))$\\\tab
+$= ((P(x) \Rightarrow Q(x)) \lor s(\forall y.P(y))) \land h(Q(t)) \Rightarrow s(P(z))$\\\tab
+$= ((P(x) \Rightarrow Q(x)) \lor s(P(y))) \land Q(t) \Rightarrow P(z)$\\\tab
+$= ((P(x) \Rightarrow Q(x)) \lor P(y)) \land Q(t) \Rightarrow P(z)$\\\tab
+Formule skolémisée et herbrandisée : $\exists x.\forall y.\forall z.\exists t.((P(x) \Rightarrow Q(x)) \lor P(y)) \land Q(t) \Rightarrow P(z)$\\\tab
 \\\tab
-$((P(x) \Rightarrow Q(a)) \lor P(y)) \land Q(t) \Rightarrow P(z)$\\\tab
-$= ((P(x) \Rightarrow Q(a)) \lor P(y)) \land \neg Q(t) \lor P(z)$\\\tab
-$= ((\neg P(x) \lor Q(a)) \lor P(y)) \land \neg Q(t) \lor P(z)$\\\tab
-$= (\neg P(x) \lor Q(a) \lor P(y)) \land (\neg Q(t) \lor P(z))$\\\tab
-Ensemble des clauses : $S = \{\neg P(x) \lor Q(a) \lor P(y), \neg Q(t) \lor P(z)\}$\\
+$((P(x) \Rightarrow Q(x)) \lor P(y)) \land Q(t) \Rightarrow P(z)$\\\tab
+$= ((P(x) \Rightarrow Q(x)) \lor P(y)) \land \neg Q(t) \lor P(z)$\\\tab
+$= ((\neg P(x) \lor Q(x)) \lor P(y)) \land \neg Q(t) \lor P(z)$\\\tab
+$= (\neg P(x) \lor Q(x) \lor P(y)) \land (\neg Q(t) \lor P(z))$\\\tab
+Ensemble des clauses : $S = \{\neg P(x) \lor Q(x) \lor P(y), \neg Q(t) \lor P(z)\}$\\
 
+\vspace{12px}
 
 \exo{6}
 
@@ -222,20 +221,23 @@ mgu$(g(y,f(f(x))),g(f(a),y)) = [f(a)/y,f(x)/a]$\\
 
 4. $\{h(a,x,f(x)) = h(a,y,y)\} \hookrightarrow_{decompose}$\\\tab
 $\{a=a,x=y,f(x)=y\} \hookrightarrow_{delete}$\\\tab
-$\{x=y,f(x)=y\} \hookrightarrow_{conflict}$\\\tab
+$\{x=y,f(x)=y\} \hookrightarrow_{swap}$\\\tab
+$\{x=y,y=f(x)\} \hookrightarrow_{eliminate}$\\\tab
+$\{x=f(x),y=f(x)\} \hookrightarrow_{conflict}$\\\tab
 $\bot$;\\\tab
 $h(a,x,f(x))$ et $h(a,y,y)$ ne sont pas unifiables.\\
 
-5. Je suppose que l'égalité entre les 3 termes équivaut à une égalité deux à deux entre chaque terme.\\\tab
-$\{g(x,g(y,z)) = g(g(a,b),x), g(x,g(y,z)) = g(x,g(a,z)), g(g(a,b),x) = g(x,g(a,z))\} \hookrightarrow_{decompose}$\\\tab
-$\{x=g(a,b), g(y,z)=x, x=x, g(y,z)=g(a,z), g(a,b)=x, x=g(a,z)\} \hookrightarrow_{decompose}$\\\tab
-$\{x=g(a,b), g(y,z)=x, x=x, y=a, z=z, g(a,b)=x, x=g(a,z)\} \hookrightarrow_{delete}$\\\tab
-$\{x=g(a,b), g(y,z)=x, y=a, g(a,b)=x, x=g(a,z)\} \hookrightarrow_{swap}$\\\tab
-$\{x=g(a,b), g(y,z)=x, y=a, x=g(a,b), x=g(a,z)\} \hookrightarrow_{doublon}$\\\tab
-$\{x=g(a,b), g(y,z)=x, y=a, x=g(a,z)\} \hookrightarrow_{eliminate}$\\\tab
-$\{x=g(a,b), g(a,z)=x, y=a, x=g(a,z)\} \hookrightarrow_{swap}$\\\tab
-$\{x=g(a,b), x=g(a,z), y=a, x=g(a,z)\} \hookrightarrow_{doublon}$\\\tab
-$\{x=g(a,b), x=g(a,z), y=a\}$;\\\tab
-mgu$(g(x,g(y,z)), g(g(a,b),x), g(x,g(a,z))) = [y/a, g(a,b)/x, g(a,z)/x]$\\
+5. $\{g(x,g(y,z)) = g(g(a,b),x), g(g(a,b),x) = g(x,g(a,z))\} \hookrightarrow_{decompose}$\\\tab
+$\{x=g(a,b), g(y,z)=x, g(a,b)=x, x=g(a,z)\} \hookrightarrow_{swap}$\\\tab
+$\{x=g(a,b), g(y,z)=x, x=g(a,b), x=g(a,z)\} \hookrightarrow_{doublon}$\\\tab
+$\{x=g(a,b), g(y,z)=x, x=g(a,z)\} \hookrightarrow_{eliminate}$\\\tab
+$\{x=g(a,b), g(y,z)=g(a,z), x=g(a,z)\} \hookrightarrow_{decompose}$\\\tab
+$\{x=g(a,b), y=a, z=z, x=g(a,z)\} \hookrightarrow_{delete}$\\\tab
+$\{x=g(a,b), y=a, x=g(a,z)\} \hookrightarrow_{eliminate}$\\\tab
+$\{x=g(a,b), y=a, g(a,b)=g(a,z)\} \hookrightarrow_{decompose}$\\\tab
+$\{x=g(a,b), y=a, a=a, b=z\} \hookrightarrow_{delete}$\\\tab
+$\{x=g(a,b), y=a, b=z\} \hookrightarrow_{eliminate}$\\\tab
+$\{x=g(a,z), y=a, b=z\}$;\\\tab
+mgu$(g(x,g(y,z)),g(g(a,b),x),g(x,g(a,z))) = [g(a,z)/x,a/y,z/b]$\\
 
 \end{document}
