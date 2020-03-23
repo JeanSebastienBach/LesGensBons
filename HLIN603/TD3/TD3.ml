@@ -129,7 +129,7 @@ print_num_exo 2 6;;
 
 class virtual ['a, 'b] polynomial (r : 'b) (p : ('a * int) list) =
 object
-
+	
 end;;
 
 
