@@ -77,7 +77,7 @@ $(P(a) \Rightarrow \forall x.Q(x)) \Rightarrow ((\exists y.P(y))  \Rightarrow \f
 $\rightsquigarrow (\forall x.P(a) \Rightarrow Q(x)) \Rightarrow ((\exists y.P(y))  \Rightarrow \forall z.Q(z))$\\\tab
 $\rightsquigarrow \exists x.(P(a) \Rightarrow Q(x)) \Rightarrow ((\exists y.P(y))  \Rightarrow \forall z.Q(z))$\\\tab
 $\rightsquigarrow \exists x.(P(a) \Rightarrow Q(x)) \Rightarrow (\forall y.P(y)  \Rightarrow \forall z.Q(z))$\\\tab
-$\rightsquigarrow \exists x.(P(a) \Rightarrow Q(x)) \Rightarrow (\forall y.\forall z.P(y)  \Rightarrow Q(z))$\\\tab
+$\rightsquigarrow \exists x.(P(a) \Rightarrow Q(x)) \Rightarrow \forall y.(P(y)  \Rightarrow \forall z.Q(z))$\\\tab
 $\rightsquigarrow \exists x.(P(a) \Rightarrow Q(x)) \Rightarrow \forall y.\forall z.(P(y)  \Rightarrow Q(z))$\\\tab
 $\rightsquigarrow \exists x.\forall y.\forall z.(P(a) \Rightarrow Q(x)) \Rightarrow (P(y)  \Rightarrow Q(z))$
 
@@ -98,43 +98,44 @@ $\rightsquigarrow \forall x.\exists y.\forall z.\exists t.\forall u.\exists v.(S
 1.
 
 \begin{prooftree}
+\def \fCenter{\ \vdash\ }
     \AxiomC{$$}
-    \RightLabel{\scriptsize$ax$}
-    \UnaryInfC{$\Phi\vdash\Phi',\Phi$}
-    \RightLabel{\scriptsize$\forall_{d}$}
-    \UnaryInfC{$\Phi\vdash\Phi',\forall x.\Phi$}
-    \AxiomC{$$}
-    \RightLabel{\scriptsize$ax$}
-    \UnaryInfC{$\Phi,\Phi'\vdash\Phi'$}
-    \RightLabel{\scriptsize$\Rightarrow_{g}$}
-    \BinaryInfC{$(\forall x.\Phi)\Rightarrow \Phi',\Phi\vdash\Phi'$}
-    \RightLabel{\scriptsize$\exists_{g}$}
-    \UnaryInfC{$(\forall x.\Phi)\Rightarrow \Phi',\exists y.\Phi\vdash\Phi'$}
-    \RightLabel{\scriptsize$\Rightarrow_{d}$}
-    \UnaryInfC{$(\forall x.\Phi)\Rightarrow \Phi'\vdash\exists y.\Phi\Rightarrow\Phi'$}
-    \RightLabel{\scriptsize$\Rightarrow_{d}$}
-    \UnaryInfC{$\vdash((\forall x.\Phi)\Rightarrow \Phi')\Rightarrow \exists y.\Phi\Rightarrow\Phi'$}
+            \RightLabel{\scriptsize$ax$}
+            \UnaryInfC{$\Phi\fCenter\Phi',\Phi$}
+            \AxiomC{$$}
+            \RightLabel{\scriptsize$ax$}
+            \UnaryInfC{$\Phi,\Phi'\fCenter\Phi'$}
+            \RightLabel{\scriptsize$\Rightarrow_{g}$}
+            \BinaryInfC{$\Phi\Rightarrow \Phi' ,\Phi\fCenter\Phi'$}
+            \RightLabel{\scriptsize$\forall_{g}$}
+            \UnaryInfC{$(\forall x.\Phi)\Rightarrow \Phi' ,\Phi\fCenter\Phi'$}
+            \RightLabel{\scriptsize$\Rightarrow_{d}$}
+            \UnaryInfC{$(\forall x.\Phi)\Rightarrow \Phi' \fCenter\Phi\Rightarrow\Phi'$}
+            \RightLabel{\scriptsize$\exists_{d}$}
+            \UnaryInfC{$(\forall x.\Phi)\Rightarrow \Phi' \fCenter\exists x.\Phi\Rightarrow\Phi'$}
+            \RightLabel{\scriptsize$\Rightarrow_{d}$}
+            \UnaryInfC{$\fCenter((\forall x.\Phi)\Rightarrow \Phi')\Rightarrow \exists x.\Phi\Rightarrow\Phi'$}
 \end{prooftree}
         
 2.
 
 \begin{prooftree}
     \AxiomC{$$}
-    \RightLabel{\scriptsize$ax$}
-    \UnaryInfC{$\Phi\vdash\Phi',\Phi$}
-    \AxiomC{$$}
-    \RightLabel{\scriptsize$ax$}
-    \UnaryInfC{$\Phi,\Phi'\vdash\Phi'$}
-    \RightLabel{\scriptsize$\Rightarrow_{g}$}
-    \BinaryInfC{$\Phi\Rightarrow \Phi', \Phi\vdash\Phi'$}
-    \RightLabel{\scriptsize$\exists_{g}$}
-    \UnaryInfC{$(\exists x.\Phi\Rightarrow \Phi'), \Phi\vdash\Phi'$}
-    \RightLabel{\scriptsize$\forall_{g}$}
-    \UnaryInfC{$(\exists x.\Phi\Rightarrow \Phi'), (\forall y.\Phi)\vdash\Phi'$}
-    \RightLabel{\scriptsize$\Rightarrow_{d}$}
-    \UnaryInfC{$(\exists x.\Phi\Rightarrow \Phi')\vdash (\forall y.\Phi)\Rightarrow\Phi'$}
-    \RightLabel{\scriptsize$\Rightarrow_{d}$}
-    \UnaryInfC{$\vdash(\exists x.\Phi\Rightarrow \Phi')\Rightarrow (\forall y.\Phi)\Rightarrow\Phi'$}
+            \RightLabel{\scriptsize$ax$}
+            \UnaryInfC{$\Phi \vdash \Phi',\Phi$}
+            \RightLabel{\scriptsize$\exists_{d}$}
+            \UnaryInfC{$\Phi \vdash \Phi',\exists x.\Phi$}
+            \RightLabel{\scriptsize$\forall_{g}$}
+            \UnaryInfC{$\forall x.\Phi \vdash \Phi',\exists x.\Phi$}
+            \AxiomC{$$}
+            \RightLabel{\scriptsize$ax$}
+            \UnaryInfC{$\forall x.\Phi,\Phi'\vdash \Phi'$}
+            \RightLabel{\scriptsize$\Rightarrow_{g}$}
+            \BinaryInfC{$(\exists x.\Phi \Rightarrow \Phi'),\forall x.\Phi\vdash\Phi'$}
+            \RightLabel{\scriptsize$\Rightarrow_{d}$}
+            \UnaryInfC{ $(\exists x.\Phi \Rightarrow \Phi') \vdash( \forall x.\Phi )\Rightarrow\Phi'$}
+            \RightLabel{\scriptsize$\Rightarrow_{d}$}
+            \UnaryInfC{$ \vdash ( \exists x.\Phi \Rightarrow \Phi') \Rightarrow ( \forall x.\Phi ) \Rightarrow \Phi'$}
 \end{prooftree}
 
 \vspace{60pt}

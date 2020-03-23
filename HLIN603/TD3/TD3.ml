@@ -129,7 +129,14 @@ print_num_exo 2 6;;
 
 class virtual ['a, 'b] polynomial (r : 'b) (p : ('a * int) list) =
 object
-	
+end;;
+
+(* 2.7 *)
+print_num_exo 2 7;;
+
+class virtual int_polynomial (r : int_ring) (p : (int * int) list) =
+object
+	inherit [int,int_ring] polynomial r p
 end;;
 
 
