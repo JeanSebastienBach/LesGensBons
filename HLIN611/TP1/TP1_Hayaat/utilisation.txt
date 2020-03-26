@@ -1,0 +1,5 @@
+gcc -Wall clientH.c -o clientH
+./clientH IP port
+
+gcc -Wall serveurH.c -o serveurH
+./clientH IP port

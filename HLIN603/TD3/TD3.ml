@@ -1,3 +1,8 @@
+(* Auteurs : Antoine AFFLATET et Jérémie ROUX - L3 Groupe C *)
+
+open List;;
+open Stdlib;;
+
 let print_num_exo i j = print_string "\n"; print_int i; print_string "."; print_int j; print_string ")\n";;
 
 let rec print_bool = function
@@ -16,7 +21,7 @@ end;;
 class min_max (init : int) =
 object (self)
 	inherit min init
-	method max y = if (self#min y=y)then self#get else y
+	method max y = if (self#min y=y) then self#get else y
 end;;
 
 class other =
@@ -127,18 +132,49 @@ end;;
 (* 2.6 *)
 print_num_exo 2 6;;
 
-class virtual ['a, 'b] polynomial (r : 'b) (p : ('a * int) list) =
-object
+let enleve3derniers str =
+  if str = "" then "" else
+  String.sub str 0 ((String.length str) - 3);;
+
+class virtual ['a,'b] polynomial (p : ('a * int) list) =
+object (self)
+    inherit ['a] ring 
+    method virtual eval : 'a -> ('a * int) list -> 'a 
+    method polynome_to_string p = 
+    	if(p=[]) then "" else string_of_int((fst (hd p)))^"X^"^string_of_int((snd (hd p)))^" + "^self#polynome_to_string (tl p)
+    method affiche = (print_string ("P = "^(enleve3derniers (self#polynome_to_string p))^"\n"))
 end;;
 
 (* 2.7 *)
 print_num_exo 2 7;;
 
-class virtual int_polynomial (r : int_ring) (p : (int * int) list) =
-object
-	inherit [int,int_ring] polynomial r p
+
+let rec pown x n = if(n=1) then x else (x * (pown x (n-1)));;
+let pow x n = if(n=0) then 1 else (pown x n);;
+
+class int_polynomial (p: (int * int) list ) = 
+object (self) 
+    inherit [int,int] polynomial p
+    method get = p
+    method add x y = x+y 
+    method inverse_id = 0
+    method add_id = 0 (* élément neutre de l'addition *)
+    method mul x y = x*y
+    method mul_id = 1 (* élément neutre de la multiplication *)
+    method calculDegre a x n = (self#mul a (pow x n))
+    method eval x (p: (int * int) list ) =
+    	if(p=[]) then 0 else (self#add (self#eval x (tl p)) (self#calculDegre (fst (hd p)) x (snd (hd p))))
 end;;
 
+(* 2.8 *)
+print_num_exo 2 8;;
 
+let evaluation p x = print_string "f("; print_int x; print_string ") = "; print_int(p#eval x p#get); print_string "\n";;
 
+let p = new int_polynomial [(1,2);(-5,1);(6,0)];;
+(evaluation p (-3));;
+(evaluation p 3);;
 
+(* 2.9 *)
+print_num_exo 2 9;;
+p#affiche;;
