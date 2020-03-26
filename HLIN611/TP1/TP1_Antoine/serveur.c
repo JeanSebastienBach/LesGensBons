@@ -9,7 +9,7 @@
 // J'ai volontairement modifié le type d'entrée de char* vers void* 
 // afin de pouvoir envoyer l'adresse d'un int (pour la taille du message à recevoir)
 // sans générer de warning à la compilation
-// J'ai également changé la valeur de retour, dans le cas ou la réception s'est bien passé, 
+// J'ai également changé la valeur de retour, dans le cas où la réception s'est bien passé, 
 // pour le nombre d'octets effectivement reçus au lieu de 1
 
 int recevoirTCP(int addr,void* s,int taille){
