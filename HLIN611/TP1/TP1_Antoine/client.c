@@ -7,10 +7,10 @@
 #include<arpa/inet.h>
 #include<string.h>
 
-// J'ai volontairement modifié le type d'entré de char* vers void* 
+// J'ai volontairement modifié le type d'entrée de char* vers void* 
 // afin de pouvoir envoyer l'adresse d'un int (pour la taille du message à recevoir)
 // sans générer de warning à la compilation
-// J'ai également changé la valeur de retour, dans le cas ou l'envoie s'est bien passé,
+// J'ai également changé la valeur de retour, dans le cas où l'envoi s'est bien passé,
 // pour le nombre d'octets effectivement reçu au lieu de 1
 int sendTCP(int addr, void* msg,int taille){
 	int nbEnvoyer = 0; // Nombre d'octets envoyés au total
