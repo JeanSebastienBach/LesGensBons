@@ -3,6 +3,7 @@
 * [TD5](https://github.com/JeanSebastienBach/LesGensBons/tree/master/HLIN602/TD5) - Manipulations syntaxiques
 ### [HLIN603](https://github.com/JeanSebastienBach/LesGensBons/tree/master/HLIN603) - Objets avancés
 * [TD3](https://github.com/JeanSebastienBach/LesGensBons/tree/master/HLIN603/TD3) - OCaml : Objets avancés
+* [TD4](https://github.com/JeanSebastienBach/LesGensBons/tree/master/HLIN603/TD4) - Smalltalk
 ### [HLIN608](https://github.com/JeanSebastienBach/LesGensBons/tree/master/HLIN608) - Algorithmique du texte
 * [TD1](https://github.com/JeanSebastienBach/LesGensBons/tree/master/HLIN608/TD1) - SSP
 ### [HLIN611](https://github.com/JeanSebastienBach/LesGensBons/tree/master/HLIN611) - Réseaux
