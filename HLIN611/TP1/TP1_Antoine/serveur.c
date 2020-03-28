@@ -6,13 +6,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-// J'ai volontairement modifié le type d'entrée de char* vers void* 
-// afin de pouvoir envoyer l'adresse d'un int (pour la taille du message à recevoir)
-// sans générer de warning à la compilation
-// J'ai également changé la valeur de retour, dans le cas où la réception s'est bien passé, 
-// pour le nombre d'octets effectivement reçus au lieu de 1
-
-int recevoirTCP(int addr,void* s,int taille){
+int recevoirTCP(int addr,char* s,int taille){
 	int nbOctetRecu = 0; // Nombre d'octets reçus au total
 	int nbrecv = 0; // Nombre d'octets reçus à chaque tour de boucle
 	while(nbOctetRecu < taille){
@@ -20,11 +14,9 @@ int recevoirTCP(int addr,void* s,int taille){
 		nbrecv = recv(addr,s+nbOctetRecu,taille-nbOctetRecu,0);
 		switch(nbrecv){
 			case -1 : 
-				perror("Erreur de réception serveur"); 
 				return -1;
 			
 			case 0 :  
-				printf("Client déconnecté lors de réception serveur\n"); 
 				return 0;
 			
 			default :
@@ -32,7 +24,7 @@ int recevoirTCP(int addr,void* s,int taille){
 				break;
 		}
 	}
-	return nbOctetRecu;
+	return 1;
 }
 int main(int argc, char *argv[])
 {
@@ -86,37 +78,49 @@ while(1){
 	}
   
   	printf("Serveur : le client %s:%d est connecté  \n", inet_ntoa(adCv.sin_addr), ntohs(adCv.sin_port));
+  	int nbOctetTotal = 0;
+  	int nbEchange = 0;
+  	while (1){
 
-    int taille = 0;
-    int err1 = recevoirTCP(dsCv, &taille,sizeof(taille)) ;
-    if(err1 <= 0) {
-    	close (dsCv) ;
-        break; 
-    }
-    printf("Serveur : je dois recevoir %d octet(s) : ",taille);
-    char* buffer = malloc(sizeof(char)*(taille +1));
-    int err = recevoirTCP(dsCv, buffer,taille);
-    if(err <= 0) {
-        close (dsCv) ;
-        break;
-    }
-    buffer[err]='\0'; 
-  
-  	printf("Serveur : j'ai reçu %d octet(s) \n", err);
-  	printf("Serveur : contenu du message : <%s> \n", buffer);
+    	int taille = 0;
+    	int err1 = recevoirTCP(dsCv,(char*)&taille,sizeof(taille));
+    	if(err1 == -1) {
+    		perror ( "Serveur : problème lors de la réception :");
+    		close (dsCv) ;
+    	    break; 
+    	}
+    	if(err1 == 0) {
+    		printf( "Serveur : client déconnecté ! \n");
+    		close (dsCv) ;
+    	    break; 
+    	}
+    	printf("Serveur : je dois recevoir %d octet(s) : ",taille);
+    	char* buffer = malloc(sizeof(char)*(taille +1));
+    	int err = recevoirTCP(dsCv, buffer,taille);
+    	if(err1 == -1) {
+    		perror ( "Serveur : problème lors de la réception :");
+    		close (dsCv) ;
+    	    break; 
+    	}
+    	if(err1 == 0) {
+    		printf( "Serveur : client déconnecté ! \n");
+    		close (dsCv) ;
+   	 		break; 
+   		}
+
+  		
+  		printf("Serveur : j'ai reçu %d octet(s) \n", err*taille);
+  		printf("Serveur : contenu du message : <%s> \n", buffer);
+  		free(buffer);
+  		nbEchange++;
+  		nbOctetTotal = nbOctetTotal + err*taille;
+  	}
   	
   	printf("Serveur : fin du dialogue avec le client\n");
+  	printf("Serveur : le client à communiqué %d fois pour un total d'octets envoyé égale à %d\n",nbEchange,nbOctetTotal);
   	close (dsCv);
 }
   
 close (ds);
 printf("Serveur : je termine\n");
 }
-
-
-
-
-
-
-
-
