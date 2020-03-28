@@ -7,25 +7,20 @@
 #include<arpa/inet.h>
 #include<string.h>
 
-// J'ai volontairement modifié le type d'entrée de char* vers void* 
-// afin de pouvoir envoyer l'adresse d'un int (pour la taille du message à recevoir)
-// sans générer de warning à la compilation
-// J'ai également changé la valeur de retour, dans le cas où l'envoi s'est bien passé,
-// pour le nombre d'octets effectivement reçu au lieu de 1
-int sendTCP(int addr, void* msg,int taille){
+
+int sendTCP(int addr, char* msg,int taille){
 	int nbEnvoyer = 0; // Nombre d'octets envoyés au total
 	int nbsend = 0; // Nombre d'octets envoyés à chaque tour de boucle
 	while (nbEnvoyer < taille){
 		// Si le client n'a pas renvoyé le bon nombre d'octets, il boucle
 		nbsend = send(addr,msg+nbEnvoyer,taille-nbEnvoyer,0);
+		
 		switch(nbsend){
 		
 			case -1 : 
-				perror("Client : erreur lors du send :"); 
 				return -1;
 			
 			case 0 :  
-				printf("Client : serveur déconnecté \n"); 
 				return 0;
 			
 			default :
@@ -33,7 +28,7 @@ int sendTCP(int addr, void* msg,int taille){
 				break;
 		}
 	}
-	return nbEnvoyer;
+	return 1;
 }
 
 int main(int argc, char *argv[]) {
@@ -73,38 +68,37 @@ int main(int argc, char *argv[]) {
 	fgets(m, sizeof(m), stdin); 		      
 	m[strlen(m)-1]  = '\0';                                 
 	
-	int res = atoi(argv[3])*(strlen(m));
-	int snd = sendTCP(ds,&res,sizeof(res));
-		
-	if(snd < 0){
-	 	printf("Client : erreur lors du send du nombre d'octet à lire !");
-	 	close(ds);
-	}
-	if(snd == 0){
-		close(ds);
-	}
 	int nombre_D_Envoi = 0;
+	int snd = 0;
 	int snd1 = 0;
-	int totalSend = 0;
+	int taille = strlen(m);
 	while(nombre_D_Envoi < atoi(argv[3])){
-		snd1 = sendTCP(ds,m,strlen(m)); 
-		
+		snd = sendTCP(ds,&taille,sizeof(taille));
+		if(snd < 0){
+	 		perror("Client : erreur lors du send de la taille! :");
+	 		close(ds);
+	 		break;
+		}else if(snd == 0){
+			printf("Client : serveur déconnecté \n"); 
+			close(ds);
+			break;
+		}
+		snd1 = sendTCP(ds,m,taille); 
 		if(snd1 < 0){
-	 		printf("Client : erreur lors du send du %d envoi !\n",nombre_D_Envoi);
+	 		perror("Client : erreur lors du send ! :");
 	 		close(ds);
 	 		break;
 		}else if(snd1 == 0){
+			printf("Client : serveur déconnecté \n"); 
 			close(ds);
 			break;
-		}else{
-			totalSend += snd1;
 		}
 		nombre_D_Envoi ++;
 	}
 	
 	
 	
-	printf("Client : j'ai déposé %d octets au total en %d appel à send avec un message de %lu octets\n",totalSend,nombre_D_Envoi,strlen(m));
+	printf("Client : j'ai déposé %lu octets au total en %d appel à send avec un message de %lu octets\n",strlen(m)*atoi(argv[3]),nombre_D_Envoi,strlen(m));
 	
 
   	close (ds);
