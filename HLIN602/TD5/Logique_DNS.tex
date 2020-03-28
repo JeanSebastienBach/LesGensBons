@@ -1,0 +1,318 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+
+\title{LogiqueTD 5}
+\author{Denis Beauget L3-Groupe C}
+
+\usepackage{bussproofs}
+
+\begin{document}
+
+\maketitle
+
+\section*{Exercice 1}
+
+\textbf{1)} $(\forall x.\textbf{P}(x)) \Rightarrow \exists y.\textbf{P}(y)$    elle est polie.
+
+
+Forme prénexe :
+\vspace{0.1cm}
+$\exists x.\exists y.  \textbf{P}(x) \Rightarrow \textbf{P}(y)$
+
+\vspace{0.5cm}
+\textbf{2)} $(\forall x. \exists y. \textbf{R}(x,y)) \Rightarrow \exists x. \forall y. \textbf{R}(x,y)$ elle n'est pas polie car x et y sont soumis à 2 quantifications.
+\\
+
+Forme polie : 
+\vspace{0.1cm}
+ $(\forall x. \exists y. \textbf{R}(x,y)) \Rightarrow \exists a. \forall b. \textbf{R}(a,b)$
+
+Forme prénexe :
+\vspace{0.1cm}
+$(\forall x.\exists y.R(x,y))\Rightarrow \exists a.\forall b.R(a,b)$\\
+
+$\rightsquigarrow \exists x.(\exists y.R(x,y))\Rightarrow \exists a.\forall b.R(a,b)$\\
+
+$\rightsquigarrow \exists x.\forall y.R(x,y)\Rightarrow \exists a.\forall b.R(a,b)$\\
+
+$\rightsquigarrow \exists x.\forall y.\exists a.R(x,y)\Rightarrow \forall b.R(a,b)$\\
+
+$\rightsquigarrow \exists x.\forall y.\exists a.\forall b.R(x,y)\Rightarrow R(a,b)$
+
+\vspace{0.5cm}
+\textbf{3)} $(\exists x. \forall y. \textbf{R}(x,y)) \Rightarrow \forall x. \exists y. \textbf{R}(x,y)$ elle n'est pas polie car x et y sont soumis à 2 quantifications.
+\\
+
+
+Forme polie :
+\vspace{0.1cm}
+$(\exists x. \forall y. \textbf{R}(x,y))
+\Rightarrow \forall a. \exists b. \textbf{R}(a,b)$ 
+
+Forme prénexe :
+\vspace{0.1cm}
+$(\exists x.\forall y.R(x,y))\Rightarrow \forall a.\exists b.R(a,b)$\\
+
+$\rightsquigarrow \forall x.(\forall y.R(x,y))\Rightarrow \forall a.\exists b.R(a,b)$\\
+
+$\rightsquigarrow \forall x.\exists y.R(x,y)\Rightarrow \forall a.\exists b.R(a,b)$\\
+
+$\rightsquigarrow \forall x.\exists y.\forall a.R(x,y)\Rightarrow \exists b.R(a,b)$\\
+
+$\rightsquigarrow \forall x.\exists y.\forall a. \exists b. R(x,y)\Rightarrow R(a,b)$\\
+
+
+\vspace{0.5cm}
+
+\textbf{4)} $(\textbf{P}(x) \Rightarrow \forall x. \textbf{Q}(x)) \Rightarrow ((\exists x. \textbf{P}(x)) \Rightarrow \forall x. \textbf{Q}(x))$ elle n'est pas polie car x est soumis à trop de quantifications et est à la fois libre et liée.
+\\
+
+Forme polie :
+\vspace{0.1cm}
+ $(\textbf{P}(y) \Rightarrow \forall x. \textbf{Q}(x)) \Rightarrow ((\exists y. \textbf{P}(y)) \Rightarrow \forall z. \textbf{Q}(z))$
+
+
+Forme prénexe :
+\vspace{0.1cm}
+$(P(a) \Rightarrow \forall x.Q(x)) \Rightarrow ((\exists y.P(y))  \Rightarrow \forall z.Q(z))$\\
+
+$\rightsquigarrow (\forall x.P(a) \Rightarrow Q(x)) \Rightarrow ((\exists y.P(y))  \Rightarrow \forall z.Q(z))$\\
+
+$\rightsquigarrow \exists x.(P(a) \Rightarrow Q(x)) \Rightarrow ((\exists y.P(y))  \Rightarrow \forall z.Q(z))$\\
+
+$\rightsquigarrow \exists x.(P(a) \Rightarrow Q(x)) \Rightarrow (\forall y.P(y)  \Rightarrow \forall z.Q(z))$\\
+
+$\rightsquigarrow \exists x.(P(a) \Rightarrow Q(x)) \Rightarrow (\forall y.\forall z.P(y)  \Rightarrow Q(z))$\\
+
+$\rightsquigarrow \exists x.(P(a) \Rightarrow Q(x)) \Rightarrow \forall y.\forall z.(P(y)  \Rightarrow Q(z))$\\
+
+$\rightsquigarrow \exists x.\forall y.\forall z.(P(a) \Rightarrow Q(x)) \Rightarrow (P(y)  \Rightarrow Q(z))$\\
+
+\textbf{5)} $(\exists x. \forall y. (\exists z. \textbf{S}(x,y,z)) \land \textbf{R}(x,y)) \Rightarrow \exists y. (\forall x. \textbf{S}(x,y,z)) \land \exists x. \textbf{R}(x,y)$ elle n'est pas polie car x,y sont soumis à plusieurs quantifications et z est à la fois libre et liée.
+\\
+
+Forme polie :
+\vspace{0.1cm}
+$(\exists x.\forall y.(\exists z.S(x,y,z)) \wedge R(x,y)) \Rightarrow \exists t.(\forall u.S(u,t,a)) \wedge \exists v.R(v,t)$\\
+
+
+Forme prénexe : 
+\vspace{0.1cm}
+$(\exists x.\forall y.(\exists z.S(x,y,z)) \wedge R(x,y)) \Rightarrow \exists t.(\forall u.S(u,t,a)) \wedge \exists v.R(v,t)$\\
+
+$\rightsquigarrow (\exists x.\forall y.\exists z.S(x,y,z) \wedge R(x,y)) \Rightarrow \exists t.(\forall u.S(u,t,a)) \wedge \exists v.R(v,t)$\\
+
+$\rightsquigarrow \forall x.\exists y.\forall z.(S(x,y,z) \wedge R(x,y)) \Rightarrow \exists t.(\forall u.S(u,t,a)) \wedge \exists v.R(v,t)$\\
+
+$\rightsquigarrow \forall x.\exists y.\forall z.(S(x,y,z) \wedge R(x,y)) \Rightarrow \exists t.\forall u.S(u,t,a) \wedge \exists v.R(v,t)$\\
+
+$\rightsquigarrow \forall x.\exists y.\forall z.(S(x,y,z) \wedge R(x,y)) \Rightarrow \exists t.\forall u.\exists v.S(u,t,a) \wedge R(v,t)$\\
+
+$\rightsquigarrow \forall x.\exists y.\forall z.\exists t.\forall u.\exists v.(S(x,y,z) \wedge R(x,y)) \Rightarrow S(u,t,a) \wedge R(v,t)$
+
+
+
+\section*{Exercice 2}
+
+\textbf{1)} $((\forall x. \Phi) \Rightarrow \Phi ') \Rightarrow \exists x. \Phi \Rightarrow \Phi '  $
+
+\begin{prooftree}
+\def\fCenter{\ \vdash\ }
+\AxiomC{$\Phi \fCenter \Phi , '\Phi $}
+\AxiomC{$ \Phi, \Phi ' \fCenter \Phi '$}
+\RightLabel{$\Rightarrow$ left}\BinaryInfC{$ \Phi \Rightarrow \Phi ' , \Phi \fCenter \Phi ' $}
+\RightLabel{$\Rightarrow$ right}\UnaryInfC{$ \Phi \Rightarrow \Phi ' \fCenter \Phi \Rightarrow \Phi '$}
+\RightLabel{$\exists$ right}\UnaryInfC{$\Phi \Rightarrow \Phi ' \fCenter \exists x. \Phi \Rightarrow \Phi '  $}
+\RightLabel{$\forall$ left}\UnaryInfC{$\forall x. \Phi \Rightarrow \Phi ' \fCenter \exists x. \Phi \Rightarrow \Phi '  $}
+\RightLabel{$\Rightarrow$ right}\UnaryInfC{$((\forall x. \Phi) \Rightarrow \Phi ') \Rightarrow \exists x. \Phi \Rightarrow \Phi '  $}
+\end{prooftree}
+
+\textbf{2)} $(\exists x. \Phi \Rightarrow \Phi') \Rightarrow (\forall x. \Phi) \Rightarrow \Phi ' $
+
+\begin{prooftree}
+\def\fCenter{\ \vdash\ }
+\AxiomC{$\Phi \fCenter \Phi ' ,\Phi $}
+\AxiomC{$ \Phi ,\Phi ' \fCenter \Phi '$}
+\RightLabel{$\Rightarrow$ left}\BinaryInfC{$ \Phi \Rightarrow \Phi ' , \Phi \fCenter \Phi ' $}
+\RightLabel{$\Rightarrow$ right}\UnaryInfC{$ \Phi \Rightarrow \Phi ' \fCenter \Phi \Rightarrow \Phi '$}
+\RightLabel{$\Rightarrow$ right}\UnaryInfC{$ \fCenter (\Phi \Rightarrow \Phi') \Rightarrow (\Phi \Rightarrow \Phi) '$}
+\RightLabel{$\forall$ right}\UnaryInfC{$ \fCenter (\Phi \Rightarrow \Phi') \Rightarrow (\forall x. \Phi) \Rightarrow \Phi '$}
+\RightLabel{$\exists$ right}\UnaryInfC{$ \fCenter (\exists x. \Phi \Rightarrow \Phi') \Rightarrow (\forall x. \Phi) \Rightarrow \Phi '$}
+\end{prooftree}
+
+\section*{Exercice 4}
+
+\textbf{1)} $\forall x. \textbf{P}(x) \Rightarrow \exists y. \forall x. \textbf{R}(x,y)$
+\newline
+
+Forme polie : $\forall x. \textbf{P}(x) \Rightarrow \exists y. \forall z. \textbf{R}(z,y)$
+\newline
+
+
+Skolémisation : 
+
+$s(\forall x. \textbf{P}(x) \Rightarrow \exists y. \forall z. \textbf{R}(z,y))$ = \\
+
+$s(\textbf{P}(x) \Rightarrow \exists y. \forall z. \textbf{R}(z,y))$ = \\
+
+$s(\textbf{P}(x) \Rightarrow  \forall z. \textbf{R}(z,y))[f(x)/y]$ = \\
+
+$s(\textbf{P}(x) \Rightarrow  \textbf{R}(z,y))[f(x)/y]$ = \\
+
+$\textbf{P}(x) \Rightarrow  \textbf{R}(z,y)[f(x)/y]$ = \\
+
+$\textbf{P}(x) \Rightarrow  \textbf{R}(z,f(x))$ = \\
+
+On obtient : $\forall x. \forall z.  \textbf{P}(x) \Rightarrow \textbf{R}(z,f(x))$ \\
+
+
+
+Finalement : $ S=\{ \neg \textbf{P}(x) \vee \textbf{R}(z,f(x)) \} $ \\
+
+\textbf{2)}  Forme polie  $(\exists x.\forall y.\textbf{R}(x,y)) \Rightarrow \forall y.\exists x.\textbf{R}(x,y)$ est $(\exists x.\forall y.\textbf{R}(x,y)) \Rightarrow \forall z.\exists t.\textbf{R}(t,z)$\\
+\\
+
+Skolémisation : 
+
+$s((\exists x.\forall y.\textbf{R}(x,y)) \Rightarrow \forall z.\exists t.\textbf{R}(t,z))$\\
+
+$= h(\exists x.\forall y.\textbf{R}(x,y)) \Rightarrow s(\forall z.\exists t.\textbf{R}(t,z))$\\
+
+$= h(\forall y.\textbf{R}(x,y)) \Rightarrow s(\forall z.\exists t.\textbf{R}(t,z))$\\
+
+$= h(\textbf{R}(x,y))[f(x)/y] \Rightarrow s(\forall z.\exists t.\textbf{R}(t,z))$\\
+
+$= \textbf{R}(x,f(x)) \Rightarrow s(\forall z.\exists t.\textbf{R}(t,z))$\\
+
+$= \textbf{R}(x,f(x)) \Rightarrow s(\exists t.\textbf{R}(t,z))$\\
+
+$= R(x,f(x)) \Rightarrow s(\textbf{R}(t,z))[g(z)/t]$\\
+
+$= \textbf{R}(x,f(x)) \Rightarrow \textbf{R}(g(z),z)$\\
+
+Formule de skolem : $\exists x.\forall z.\textbf{R}(x,f(x)) \Rightarrow \textbf{R}(g(z),z)$\\
+
+\\
+$\textbf{R}(x,f(x)) \Rightarrow \textbf{R}(g(z),z)$\\
+
+$= \neg \textbf{R}(x,f(x))\lor \textbf{R}(g(z),z)$\\
+
+Finalement : $S = \{\neg \textbf{R}(x,f(x))\lor \textbf{R}(g(z),z)\}$\\
+
+
+
+\textbf{3)} Forme polie : $((\exists x.\textbf{P}(x) \Rightarrow \textbf{Q}(x)) \lor \forall y.\textbf{P}(y)) \land \forall x.\exists y.\textbf{Q}(y) \Rightarrow \textbf{P}(x)$ est\\
+
+Skolémisation : \\
+
+$((\exists x.\textbf{P}(x) \Rightarrow \textbf{Q}(x)) \lor \forall y.\textbf{P}(y)) \land \forall z.\exists t.\textbf{Q}(t) \Rightarrow \textbf{P}(z)$\\
+
+$s(((\exists x.\textbf{P}(x) \Rightarrow \textbf{Q}(x)) \lor \forall y.\textbf{P}(y)) \land \forall z.\exists t.\textbf{Q}(t) \Rightarrow \textbf{P}(z))$\\
+
+$= (s((\exists x.\textbf{P}(x) \Rightarrow \textbf{Q}(x)) \lor \forall y.\textbf{P}(y))) \land s(\forall z.\exists t.\textbf{Q}(t) \Rightarrow \textbf{P}(z))$\\
+
+$= (s((P(x) \Rightarrow \textbf{Q}(x)) \lor \forall y.\textbf{P}(y))) \land s(\exists t.\textbf{Q}(t) \Rightarrow \textbf{P}(z))$\\
+
+$= ((h(\textbf{P}(x)) \Rightarrow s(\textbf{Q}(x)) \lor s(\forall y.\textbf{P}(y))) \land s(\textbf{Q}(t) \Rightarrow \textbf{P}(z))$\\
+
+$= ((\textbf{P}(x) \Rightarrow \textbf{Q}(x)) \lor s(\forall y.\textbf{P}(y))) \land h(\textbf{Q}(t)) \Rightarrow s(\textbf{P}(z))$\\
+
+$= ((\textbf{P}(x) \Rightarrow \textbf{Q}(x)) \lor s(\textbf{P}(y))) \land \textbf{Q}(t) \Rightarrow \textbf{P}(z)$\\
+
+$= ((\textbf{P}(x) \Rightarrow \textbf{Q}(x)) \lor \textbf{P}(y)) \land \textbf{Q}(t) \Rightarrow \textbf{P}(z)$\\
+
+Formule de skolem : $\exists x.\forall y.\forall z.\exists t.((\textbf{P}(x) \Rightarrow \textbf{Q}(x)) \lor \textbf{P}(y)) \land \textbf{Q}(t) \Rightarrow \textbf{P}(z)$\\
+
+\\
+
+$((\textbf{P}(x) \Rightarrow \textbf{Q}(x)) \lor \textbf{P}(y)) \land \textbf{Q}(t) \Rightarrow \textbf{P}(z)$\\
+
+$= ((\textbf{P}(x) \Rightarrow \textbf{Q}(x)) \lor P(y)) \land \neg \textbf{Q}(t) \lor P(z)$\\
+
+$= ((\neg \textbf{P}(x) \lor \textbf{Q}(x)) \lor \textbf{P}(y)) \land \neg \textbf{Q}(t) \lor \textbf{P}(z)$\\
+
+$= (\neg \textbf{P}(x) \lor \textbf{Q}(x) \lor \textbf{P}(y)) \land (\neg \textbf{Q}(t) \lor \textbf{P}(z))$\\
+
+Finalement : $S = \{\neg \textbf{P}(x) \lor \textbf{Q}(x) \lor \textbf{P}(y), \neg \textbf{Q}(t) \lor \textbf{P}(z)\}$\\
+
+
+
+
+
+
+
+
+
+\section*{Exercice 6}
+
+\textbf{1)} $\{g(f(x),f(y)) = g(f(f(a)),f(z))\} \hookrightarrow_{decompose}$\\
+
+$\{f(x)=f(f(a)), f(y)=f(z)\} \hookrightarrow_{decompose}$\\
+
+$\{x=f(a), y=z\}$;\\
+
+mgu$(g(f(x),f(y)),g(f(f(a)),f(z))) = [z/y,f(a)/x]$\\
+
+Fin algo.\\
+
+\textbf{2)} $\{h(x,f(a),x) = h(h(a,b,y),f(y),h(a,b,a))\} \hookrightarrow_{decompose}$\\
+
+$\{x=h(a,b,y), f(a)=f(y), x=h(a,b,a)\} \hookrightarrow_{decompose}$\\
+
+$\{x=h(a,b,y), a=y, x=h(a,b,a)\} \hookrightarrow_{eliminate}$\\
+
+$\{x=h(y,b,y), a=y, x=h(y,b,y)\} \hookrightarrow_{doublon}$\\
+
+$\{a=y, x=h(y,b,y)\}$;\\
+
+mgu$(h(x,f(a),x),h(h(a,b,y),f(y),h(a,b,a))) = [y/a,h(y,b,y)/x]$\\
+Fin algo \\
+
+\textbf{3)} $\{g(y,f(f(x))) = g(f(a),y)\} \hookrightarrow_{decompose}$\\
+
+$\{y=f(a),f(f(x))=y\} \hookrightarrow_{eliminate}$\\
+
+$\{y=f(a),f(f(x))=f(a)\} \hookrightarrow_{decompose}$\\
+
+$\{y=f(a),f(x)=a\} \hookrightarrow_{swap}$\\
+
+$\{y=f(a),a=f(x)\}$;\\
+
+mgu$(g(y,f(f(x))),g(f(a),y)) = [f(a)/y,f(x)/a]$\\
+Fin algo. \\
+
+\textbf{4)} $\{h(a,x,f(x)) = h(a,y,y)\} \hookrightarrow_{decompose}$\\
+
+$\{a=a,x=y,f(x)=y\} \hookrightarrow_{delete}$\\
+
+$\{x=y,f(x)=y\} \hookrightarrow_{conflict}$\\
+$\bot$;\\
+
+$h(a,x,f(x))$ et $h(a,y,y)$ ne peuvent plus être unifiés.\\
+Fin algo. \\
+
+\textbf{5)} 
+$\{g(x,g(y,z)) = g(g(a,b),x), g(x,g(y,z)) = g(x,g(a,z)), g(g(a,b),x) = g(x,g(a,z))\} \hookrightarrow_{decompose}$\\
+
+$\{x=g(a,b), g(y,z)=x, x=x, g(y,z)=g(a,z), g(a,b)=x, x=g(a,z)\} \hookrightarrow_{decompose}$\\
+
+$\{x=g(a,b), g(y,z)=x, x=x, y=a, z=z, g(a,b)=x, x=g(a,z)\} \hookrightarrow_{delete}$\\
+
+$\{x=g(a,b), g(y,z)=x, y=a, g(a,b)=x, x=g(a,z)\} \hookrightarrow_{swap}$\\
+
+$\{x=g(a,b), g(y,z)=x, y=a, x=g(a,b), x=g(a,z)\} \hookrightarrow_{doublon}$\\
+
+$\{x=g(a,b), g(y,z)=x, y=a, x=g(a,z)\} \hookrightarrow_{eliminate}$\\
+
+$\{x=g(a,b), g(a,z)=x, y=a, x=g(a,z)\} \hookrightarrow_{swap}$\\
+
+$\{x=g(a,b), x=g(a,z), y=a, x=g(a,z)\} \hookrightarrow_{doublon}$\\
+
+$\{x=g(a,b), x=g(a,z), y=a\}$;\\
+
+mgu$(g(x,g(y,z)), g(g(a,b),x), g(x,g(a,z))) = [y/a, g(a,b)/x, g(a,z)/x]$\\
+Fin algo.
+
+
+\end{document}
