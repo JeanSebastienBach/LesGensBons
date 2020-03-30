@@ -9,3 +9,5 @@
 * [TD1](https://github.com/JeanSebastienBach/LesGensBons/tree/master/HLIN608/TD1) - SSP
 ### [HLIN611](https://github.com/JeanSebastienBach/LesGensBons/tree/master/HLIN611) - Réseaux
 * [TP1](https://github.com/JeanSebastienBach/LesGensBons/tree/master/HLIN611/TP1) - TCP
+### [HLIN612](https://github.com/JeanSebastienBach/LesGensBons/tree/master/HLIN612) - Complexité et Calculabilité
+* [Exercice 40](https://github.com/JeanSebastienBach/LesGensBons/tree/master/HLIN612/Exo40) - Programmation dynamique

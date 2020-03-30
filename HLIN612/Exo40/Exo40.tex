@@ -1,0 +1,180 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=1.5cm, bottom=3.5cm, left=1.5cm, right=1.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{french}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+
+\usepackage{graphics} %inclusion de figures
+\usepackage{graphicx} %inclusion de figures
+
+\usepackage{sidecap}
+\sidecaptionvpos{figure}{c}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{numprint}
+\usepackage[bottom]{footmisc}
+\usepackage[justification=centering]{caption}
+\usepackage[french,frenchkw,boxed,ruled,lined]{algorithm2e}
+\SetKw{KwDe}{de}
+\SetKw{KwOu}{ou}
+\SetKw{KwEt}{et}
+\SetKw{Kwrenv}{renvoyer}
+\SetKwInput{Variables}{Variables}
+\SetKwInput{Variable}{Variable}
+\usepackage{xifthen}
+\usepackage{colortbl}
+\definecolor{green}{rgb}{0.0, 0.5, 0.0}
+\usepackage{array,multirow}
+\usepackage{wrapfig}
+\usepackage{bussproofs}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\definecolor{processblue}{cmyk}{0.96,0,0,0}
+
+\newcommand{\exo}[1]{\Large \textbf{Exercice \numprint{#1}} \vspace{10px} \normalsize}
+\newcommand\tab[1][12pt]{\hspace*{#1}}
+
+\newcommand{\titlebox}[2]{%
+\tikzstyle{titlebox}=[rectangle,inner sep=10pt,inner ysep=10pt,draw]%
+\tikzstyle{title}=[fill=white]%
+%
+\bigskip\noindent\begin{tikzpicture}
+\node[titlebox] (box){%
+    \begin{minipage}{0.94\textwidth}
+#2
+    \end{minipage}
+};
+%\draw (box.north west)--(box.north east);
+\node[title] at (box.north) {#1};
+\end{tikzpicture}\bigskip%
+}
+
+% INFOS
+\author{Antoine AFFLATET et Jérémie ROUX (L3 Groupe C)}
+\title{HLIN612 - Calculabilité/Complexité \\Exercice 40 - Programmation dynamique : algorithme pseudo-polynomial}
+\date{2019 - 2020}
+
+\setlength{\parindent}{0cm}
+
+\begin{document}
+
+\maketitle
+
+\exo{1}\\
+
+\vspace{-20px}
+
+\titlebox{Problème de \textsc{2-Partition}}{
+\vspace{3px}
+\textbf{Entrée :} Étant donnés $n$ objets $a_i$ ($1 \leq i \leq n$) de poids entiers $p(a_1), p(a_2), ..., p(a_n)$ de somme $2P$.\\
+\textbf{Question :} Est-il possible de les partager en 2 sous-ensembles de même poids total $P$ ?
+}
+
+On considère $i$ et $j$, tels que $1 \leq i \leq n$ et $0 \leq j \leq P$ et $T(i,j)$ : ``Étant donnés les $i$ premiers éléments de la famille, il existe un sous-ensemble de ces $i$ éléments de poids $j$''.\\
+
+$n=6$\\
+$2P = \sum\limits_{i=1}^n p(a_i) = \sum\limits_{i=1}^6 p(a_i) = p(a_1) + p(a_2) + p(a_3) + p(a_4) + p(a_5) + p(a_6) = 5+9+3+8+2+5=32$\\
+donc $P = \frac{32}{2} = 16$\\
+
+ T[i,j] est vrai si et seulement si ($p(a_i) == j)$ || ($T[i,j] == T[i-1,j]$) || ($T[i-1,j-p(a_i)]==1$)) l'est aussi.\\
+
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+    \hline
+    $i/j$ & $0$ & $1$ & $2$ & $3$ & $4$ & $5$ & $6$ & $7$ & $8$ & $9$ & $10$ & $11$ & $12$ & $13$ & $14$ & $15$ & $16$\\
+    \hline
+    
+    1 & \cellcolor{green!50} & & & & & \cellcolor{green!50}& & & & & & & & & & &\\
+    \hline
+    2 & \cellcolor{green!50} & & & & & \cellcolor{green!50}& & & & \cellcolor{green!50}& & & & &\cellcolor{green!50} & &\\
+    \hline
+    3 & \cellcolor{green!50} & & &\cellcolor{green!50} & & \cellcolor{green!50}& & &\cellcolor{green!50} & \cellcolor{green!50}& & &\cellcolor{green!50} & & \cellcolor{green!50}& &\\
+    \hline
+    4 & \cellcolor{green!50} & & &\cellcolor{green!50} & & \cellcolor{green!50}& & &\cellcolor{green!50} & \cellcolor{green!50}& &  \cellcolor{green!50}&\cellcolor{green!50} &  \cellcolor{green!50} & \cellcolor{green!50}& & \cellcolor{green!50}\\
+    \hline
+    5 & \cellcolor{green!50} & &\cellcolor{green!50} &\cellcolor{green!50} & & \cellcolor{green!50}& &\cellcolor{green!50} &\cellcolor{green!50} & \cellcolor{green!50}& \cellcolor{green!50} &  \cellcolor{green!50}&\cellcolor{green!50} &  \cellcolor{green!50} & \cellcolor{green!50}& \cellcolor{green!50} & \cellcolor{green!50}\\
+    \hline
+    6 & \cellcolor{green!50} & &\cellcolor{green!50} &\cellcolor{green!50} & & \cellcolor{green!50}& &\cellcolor{green!50} &\cellcolor{green!50} & \cellcolor{green!50}& \cellcolor{green!50} &  \cellcolor{green!50}&\cellcolor{green!50} &  \cellcolor{green!50} & \cellcolor{green!50}& \cellcolor{green!50} & \cellcolor{green!50}\\
+    \hline
+\end{tabular}
+
+\vspace{20px}
+
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+    \hline
+    $i/j$ & $0$ & $1$ & $2$ & $3$ & $4$ & $5$ & $6$ & $7$ & $8$ & $9$ & $10$ & $11$ & $12$ & $13$ & $14$ & $15$ & $16$\\
+    \hline
+    1 & $\{\{\}\}$ & $\emptyset$ & $\emptyset$ & $\emptyset$ & $\emptyset$ & $\{\{a_1\}\}$ & $\emptyset$ & $\emptyset$ & $\emptyset$ & $\emptyset$ & $\emptyset$ & $\emptyset$ & $\emptyset$ & $\emptyset$ & $\emptyset$ & $\emptyset$ & $\emptyset$ \\
+    \hline
+    2 & $\{\{\}\}$ & $\emptyset$ & $\emptyset$ & $\emptyset$ & $\emptyset$ & $\{\{a_1\}\}$ & $\emptyset$ & $\emptyset$ & $\emptyset$ & $\{a_2\}$ & $\emptyset$ & $\emptyset$ & $\emptyset$ & $\emptyset$ & $\emptyset$ & $\emptyset$ & $\emptyset$ \\
+    \hline
+    3 & $\{\{\}\}$ & $\emptyset$ & $\emptyset$ & $\{\{a_3\}\}$ & $\emptyset$ & $\{\{a_1\}\}$ & $\emptyset$ & $\emptyset$ & $\{\{a_1,a_3\}\}$ & $\{a_2\}$ & $\emptyset$ & $\emptyset$ & $\emptyset$ & $\emptyset$ & $\emptyset$ & $\emptyset$ & $\emptyset$ \\
+    \hline
+    4 & $\{\{\}\}$ & $\emptyset$ & $\emptyset$ & $\{\{a_3\}\}$ & $\emptyset$ & $\{\{a_1\}\}$ & $\emptyset$ & $\emptyset$ & $\{\{a_1,a_3\},\{a_4\}\}$ & $\{a_2\}$ & $\emptyset$ & $\emptyset$ & $\emptyset$ & $\emptyset$ & $\emptyset$ & $\emptyset$ & $\emptyset$ \\
+    \hline
+    5 & $\{\{\}\}$ & $\emptyset$ & $\{\{a_5\}\}$ & $\{\{a_3\}\}$ & $\emptyset$ & $\{\{a_1\}\},\{a_3,a_5\}\}$ & $\emptyset$ & $\{\{a_1,a_3\}\}$ & $\{\{a_1,a_3\},\{a_4\}\}$ & $\{a_2\}$ & $\{\{a_1,a_3,a_5\}\}$ & $\emptyset$ & $\emptyset$ & $\emptyset$ & $\emptyset$ & $\emptyset$ & $\emptyset$ \\
+    \hline
+    6 & $\{\{\}\}$ & $\emptyset$ & $\{\{a_5\}\}$ & $\{\{a_3\}\}$ & $\emptyset$ & $\{\{a_1\}\},\{a_3,a_5\},\{a_6\}\}$ & $\emptyset$ & $\{\{a_1,a_5\},\{a_6,a_5\}\}$ & $\{\{a_1,a_3\},\{a_4\},\{a_6,a_3\}\}$ & $\{a_2\}$ & $\{\{a_1,a_3,a_5\},\{a_1,a_6\},\{a_6,a_3,a_5\}\}$ & $\emptyset$ & $\emptyset$ & $\emptyset$ & $\emptyset$ & $\emptyset$ & $\emptyset$ \\
+    \hline
+\end{tabular}
+
+Depuis ce tableau (tableau 1) on prend l'élément de la première ligne vérifiant la colonne 16, puis celui de la première ligne vérifiant $16-p(a_i)$ avec $a_i$ étant l'élément de la première ligne vérifiant la colonne 16. On reproduit jusqu'à avoir tous les éléments.\\
+  
+\begin{algorithm}[H]
+    $i \gets n$\;
+    $j \gets P$\;
+    $S \gets \{\}$\;
+    \Tq{$i>0$ et $T[i][j] \neq 0$}{
+        $i--$\; 
+        $S \gets S \cup \{a_{i+1}\}$\;
+        $j \gets j - p(a_{i+1})$\;
+        $i \gets n$\;
+    }
+    \textbf{renvoyer} $S$\;
+    
+    \caption{Reconstruction de la solution($T$ : tableau à 2 dimensions, $P$ : poids total, $n$ : entier) : ensemble}
+\end{algorithm}
+
+Complexité de l'algorithme = $O(n*P)$ où n est le nombre d'élément dans l'ensemble et $P= 1/2*\sum\limits_{i=1}^n p(a_i)$
+
+
+\newpage
+\exo{2}\\
+
+\vspace{-20px}
+
+\titlebox{Problème du sac à dos sans répétition}{
+\vspace{3px}
+Les objets seront pris au plus 1 fois. Pour cela considérons, un tableau $K$ à deux dimensions tel que $K[j,w]$ représente la valeur maximale que l'on peut stocker dans un sac de capacité $w$, avec des objets $1, .., j$.
+}
+
+$K[0,w] = 0$ et $K[j,0] = 0$\\
+$K[j,w] =$ max\\
+
+$K[j,w] =$ max($K[j - 1,w],K[j - 1,w - w_j] + v_j$)\\
+
+\begin{tabular}{|c|ccccccccccccc|}
+\hline
+$j\backslash w$&$0$&$1$&$2$&$3$&$4$&$5$&$6$&$7$&$8$&$9$&$10$&$11$&$12$\\
+\hline
+$0$&$0$&$0$&$0$&$0$&$0$&$0$&$0$&$0$&$0$&$0$&$0$&$0$&$0$\\
+\hline
+$1$&$0$&$1$&$1$&$1$&$1$&$1$&$1$&$1$&$1$&$1$&$1$&$1$&$1$\\
+\hline
+$2$&$\mathbf{0}$&$1$&$6$&$7$&$7$&$7$&$7$&$7$&$7$&$7$&$7$&$7$&$7$\\
+\hline
+$3$&$0$&$1$&$6$&$7$&$7$&$\mathbf{18}$&$19$&$24$&$25$&$25$&$25$&$25$&$25$\\
+\hline
+$4$&$0$&$1$&$6$&$7$&$7$&$\mathbf{18}$&$22$&$24$&$28$&$29$&$29$&$40$&$41$\\
+\hline
+$5$&$0$&$1$&$6$&$7$&$7$&$18$&$22$&$24$&$28$&$30$&$31$&$40$&$\mathbf{42}$\\
+\hline
+\end{tabular}
+
+\end{document}
