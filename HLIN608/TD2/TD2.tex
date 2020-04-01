@@ -1,0 +1,346 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=1.5cm, bottom=3.5cm, left=1.5cm, right=1.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{french}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+
+\usepackage{graphics} %inclusion de figures
+\usepackage{graphicx} %inclusion de figures
+
+\usepackage{sidecap}
+\sidecaptionvpos{figure}{c}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{numprint}
+\usepackage[bottom]{footmisc}
+\usepackage[justification=centering]{caption}
+\usepackage[french,frenchkw,boxed,ruled,lined]{algorithm2e}
+\SetKw{KwDe}{de}
+\SetKw{KwOu}{ou}
+\SetKw{KwEt}{et}
+\SetKw{Kwrenv}{renvoyer}
+\SetKwInput{Variables}{Variables}
+\SetKwInput{Variable}{Variable}
+\usepackage{xifthen}
+\usepackage{colortbl}
+\definecolor{green}{rgb}{0.0, 0.5, 0.0}
+\usepackage{array,multirow}
+\usepackage{wrapfig}
+\usepackage{bussproofs}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{positioning,calc}
+\usetikzlibrary{arrows,calc,decorations.markings,math,arrows.meta}
+\usetikzlibrary{shapes,snakes}
+\definecolor{processblue}{cmyk}{0.96,0,0,0}
+
+\newcommand{\exo}[1]{\Large \textbf{Exercice \numprint{#1}} \vspace{10px} \normalsize}
+\newcommand\tab[1][12pt]{\hspace*{#1}}
+
+\newcommand{\titlebox}[2]{%
+\tikzstyle{titlebox}=[rectangle,inner sep=10pt,inner ysep=10pt,draw]%
+\tikzstyle{title}=[fill=white]%
+%
+\bigskip\noindent\begin{tikzpicture}
+\node[titlebox] (box){%
+    \begin{minipage}{0.94\textwidth}
+#2
+    \end{minipage}
+};
+%\draw (box.north west)--(box.north east);
+\node[title] at (box.north) {#1};
+\end{tikzpicture}\bigskip%
+}
+
+\newcommand\matching[1]{
+ \begin{tikzpicture}
+  \foreach \x [count=\p] in {1,...,#1} {
+    \node[line width=0.4mm,circle,draw, scale=1.5] (\p) at (-\x*360/#1:5) {$F_\p$};}
+\draw[line width=0.4mm,arrows={->[length=2.5mm,width=5mm]},bend right=25] (1.north west) to node[fill=white,draw] {1} (3.south east);
+\draw[line width=0.4mm,arrows={->[length=2.5mm,width=5mm]},bend right=25] (3.south) to node[fill=white,draw] {3} (1.west);
+\draw[line width=0.4mm,arrows={->[length=2.5mm,width=5mm]},bend right=25] (1.north) to node[fill=white,draw] {2} (4.south);
+\draw[line width=0.4mm,arrows={->[length=2.5mm,width=5mm]},bend left=25] (2.north west) to node[fill=white,draw] {2} (3.south west);
+\draw[line width=0.4mm,arrows={->[length=2.5mm,width=5mm]},bend right=25] (2.south east) to node[fill=white,draw] {1} (5.south);
+\draw[line width=0.4mm,arrows={->[length=2.5mm,width=5mm]}] (5.south west) to node[fill=white,draw] {2} (2.east);
+\draw[line width=0.4mm,arrows={->[length=2.5mm,width=5mm]}] (3.east) to node[fill=white,draw] {1} (5.west);
+\draw[line width=0.4mm,arrows={->[length=2.5mm,width=5mm]},bend right=25] (5.north west) to node[fill=white,draw] {1} (3.north east);
+\draw[line width=0.4mm,arrows={->[length=2.5mm,width=5mm]},bend right=25] (4.west) to node[fill=white,draw] {1} (2.north);
+ \end{tikzpicture}
+}
+
+\newcommand\matchinga[1]{
+ \begin{tikzpicture}
+  \foreach \x [count=\p] in {1,...,#1} {
+    \node[line width=0.4mm,circle,draw, scale=1] (\p) at (-\x*360/#1:3) {$F_\p$};}
+\draw[opacity=0.2,line width=0.4mm,arrows={->[length=2.5mm,width=5mm]},bend right=25] (1.north west) to node[fill=white] {} (3.south east);
+\draw[line width=0.4mm,arrows={->[length=2.5mm,width=5mm]},bend right=25] (3.south) to node[fill=white,draw] {3} (1.west);
+\draw[line width=0.4mm,arrows={->[length=2.5mm,width=5mm]},bend right=25] (1.north) to node[fill=white,draw] {2} (4.south);
+\draw[opacity=0.2,line width=0.4mm,arrows={->[length=2.5mm,width=5mm]},bend left=25] (2.north west) to node[fill=white] {} (3.south west);
+\draw[line width=0.4mm,arrows={->[length=2.5mm,width=5mm]},bend right=25] (2.south east) to node[fill=white,draw] {1} (5.south);
+\draw[opacity=0.2,line width=0.4mm,arrows={->[length=2.5mm,width=5mm]}] (5.south west) to node[fill=white] {} (2.east);
+\draw[opacity=0.2,line width=0.4mm,arrows={->[length=2.5mm,width=5mm]}] (3.east) to node[line width=0.4mm,fill=white] {} (5.west);
+\draw[line width=0.4mm,arrows={->[length=2.5mm,width=5mm]},bend right=25] (5.north west) to node[fill=white,draw] {1} (3.north east);
+\draw[line width=0.4mm,arrows={->[length=2.5mm,width=5mm]},bend right=25] (4.west) to node[fill=white,draw] {1} (2.north);
+ \end{tikzpicture}
+}
+
+% INFOS
+\author{Denis BEAUGET, Antoine AFFLATET et Jérémie ROUX (L3 Groupe C)}
+\title{HLIN608 - Algorithmique du texte - TD Assemblage}
+\date{2019 - 2020}
+
+\setlength{\parindent}{0cm}
+
+\begin{document}
+
+\maketitle
+
+
+\exo{1}
+
+
+Soit $F = \{F_1,F_2,F_3,F_4,F_5\}$ tel que :\\
+$$F_1 = ACCTGAG$$
+$$F_2 = TGCATTGC$$
+$$F_3 = GCAGACC$$
+$$F_4 = AGCAAT$$
+$$F_5 = CAATG$$\\
+
+\vspace{-10px}
+
+Appliquons la méthode gloutonne pour extraire la plus petite chaîne $F$ comprenant tout ces sous-mots. Pour la suite du TP, on notera $F_{i/j}$ le mot qui est la concaténation de $F_i$ et $F_j$ (dans cet ordre) ayant en commun overlap($F_i$,$F_j$) lettres. On définit overlap($F_i$,$F_j$) la longueur du plus long suffixe de $F_i$ qui correspond à un préfixe de $F_j$. On cherche donc la valeur maximale dans ce tableau :\\
+
+\begin{center}
+\begin{tabular}{|*{6}{c|}}
+    \hline
+    & $F_1$ & $F_2$ & $F_3$ & $F_4$ & $F_5$\\
+    \hline
+    $F_1$ & & overlap($F_1$,$F_2$) & overlap($F_1$,$F_3$) & overlap($F_1$,$F_4$) & overlap($F_1$,$F_5$)\\
+    \hline
+    $F_2$  & overlap($F_2$,$F_1$) & & overlap($F_2$,$F_3$) & overlap($F_2$,$F_4$) & overlap($F_2$,$F_5$)\\
+    \hline
+    $F_3$  & overlap($F_3$,$F_1$) & overlap($F_3$,$F_2$) & & overlap($F_3$,$F_4$) & overlap($F_3$,$F_5$)\\
+    \hline
+    $F_4$ & overlap($F_4$,$F_1$) & overlap($F_4$,$F_2$) & overlap($F_4$,$F_3$) & & overlap($F_4$,$F_5$)\\
+    \hline
+    $F_5$ & overlap($F_5$,$F_1$) & overlap($F_5$,$F_2$) & overlap($F_5$,$F_3$) & overlap($F_5$,$F_4$) &\\
+    \hline
+\end{tabular}
+\end{center}
+
+\vspace{10px}
+
+\textbf{Étape 1 :}\\
+
+\vspace{-20px}
+
+\begin{center}
+\begin{tabular}{|*{6}{c|}}
+    \hline
+    & $F_1 : ACCTGAG$ & $F_2 : TGCATTGC$ & $F_3 : GCAGACC$ & $F_4 : AGCAAT$ & $F_5 : CAATG$\\
+    \hline
+    $F_1 : ACCTGAG$ & & 0 & 1 & 2 & 0\\
+    \hline
+    $F_2 : TGCATTGC$  & 0 & & 2 & 0 & 1 \\
+    \hline
+    $F_3 : GCAGACC$  & \textbf{\textcolor{red}{3}} & 0 & & 0 & 1\\
+    \hline
+    $F_4 : AGCAAT$  & 0 & 1 & 0 & & 0 \\
+    \hline
+    $F_5 : CAATG$  & 0 & 2 & 1 & 0 & \\
+    \hline
+\end{tabular}
+\end{center}
+
+\vspace{3px}
+
+On remarque que le plus gros overlap est $overlap(F_3,F_1) = 3$ (les 3 dernières lettres de $F_3$ sont égales aux 3 premières de $F_1$). On obtient donc le nouveau mot $F_{3/1} = GCAG\underline{ACC}TGAG$ (la séquence d'overlap est soulignée) et on supprime $F_3$ et $F_1$.\\
+
+\textbf{Étape 2 :}\\
+
+\begin{center}
+\begin{tabular}{|*{5}{c|}}
+    \hline
+    & $F_{3/1} : GCAGACCTGAG$  & $F_2 : TGCATTGC$ & $F_4 : AGCAAT$ & $F_5 : CAATG$\\
+    \hline
+    $F_{3/1} : GCAGACCTGAG$ & & 0 & 2 & 0\\
+    \hline
+    $F_2 : TGCATTGC$ & 2 & & 0 & 1\\
+    \hline
+    $F_4 : AGCAAT$ & 0 & 1 & & \textbf{\textcolor{red}{4}}\\
+    \hline
+    $F_5 : CAATG$ & 1 & 2 & 0 &\\
+    \hline
+\end{tabular}
+\end{center}
+
+\vspace{5px}
+
+On remarque que le plus gros overlap est $overlap(F_4,F_5) = 4$ (les 4 dernières lettres de $F_4$ sont égales aux 4 premières de $F_5$). On obtient donc le nouveau mot $F_{4/5} = AG\underline{CAAT}G$ (la séquence d'overlap est soulignée) et on supprime $F_4$ et $F_5$.\\
+
+\textbf{Étape 3 :}\\
+
+\begin{center}
+\begin{tabular}{|*{4}{c|}}
+    \hline
+    & $F_{3/1} : GCAGACCTGAG$ & $F_2 : TGCATTGC$ & $F_{4/5} : AGCAATG$\\
+    \hline
+    $F_{3/1} : GCAGACCTGAG$ & & 0 & \textbf{\textcolor{red}{2}}\\
+    \hline
+    $F_2 : TGCATTGC$ & 2 & & 0\\
+    \hline
+    $F_{4/5} : AGCAATG$ & 1 & 2 &\\
+    \hline
+\end{tabular}
+\end{center}
+
+\vspace{5px}
+
+Dans notre procédure gloutonne, on suppose que l'overlap qui nous intéresse est celui que l'on rencontre en premier (en parcourant le tableau dans l'ordre ligne puis colonne).\\
+
+Cet overlap est $overlap(F_{3/1},F_{4/5}) = 2$ (les 2 dernières lettres de $F_{3/1}$ sont égales aux 2 premières de $F_{4/5}$). On obtient donc le nouveau mot $F_{(3/1)/(4/5)} = GCAGACCTG\underline{AG}CAATG$ (la séquence d'overlap est soulignée) et on supprime $F_{3/1}$ et $F_{4/5}$.\\
+
+\textbf{Étape 4 :}\\
+
+\begin{tabular}{|*{4}{c|}}
+    \hline
+    & $F_{(3/1)/(4/5)} : GCAGACCTGAGCAATG$ & $F_2 : TGCATTGC$\\
+    \hline
+    $F_{(3/1)/(4/5)} : GCAGACCTGAGCAATG$ & & \textbf{\textcolor{red}{2}}\\
+    \hline
+    $F_2 : TGCATTGC$ & 2 &\\
+    \hline
+\end{tabular}\\
+
+\vspace{15px}
+
+D'après notre procédure gloutonne (vue précédemment), l'overlap qui nous intéresse est $overlap(F_{(3/1)/(4/5)},F_2) = 2$ (les 2 dernières lettres de $F_{(3/1)/(4/5)}$ sont égales aux 2 premières de $F_2$). On obtient donc le nouveau mot $F_{((3/1)/(4/5))/2} = GCAGACCTGAGCAA\underline{TG}CATTGC$ (la séquence d'overlap est soulignée) et on supprime $F_{(3/1)/(4/5)}$ et $F_2$.\\
+
+\vspace{10px}
+
+Finalement, l'algorithme renvoi la séquence (de longueur 22) : $$F_{((3/1)/(4/5))/2} = F = \textbf{GCAGACCTGAGCAATGCATTGC}$$
+
+
+\newpage
+
+\exo{2}\\
+
+\begin{algorithm}[H]
+    \Variables {SC: ensemble de mots; max : entier; a, b : mot;}
+    $SC \gets F$\;
+    $max \gets 0$\;
+    $a \gets$ ``''\;
+    $b \gets$ ``''\;
+    \Tq{$|SC| > 1$}{
+    \PourCh{mot $m_1$ de $\mathcal{SC}$}{
+        \PourCh{mot $m_2$ de $\mathcal{SC}\setminus\{m_1\}$}{
+        \Si{$max == 0$}{
+            $a \gets m_1$\;
+            $b \gets m_2$\;
+        }
+        $buf \gets overlap(m_1,m_2)$\;
+        \Si{$max < buf$}{
+            $max \gets buf$\;
+            $a \gets m_1$\;
+            $b \gets m_2$\;
+        }
+        $\mathcal{SC}\setminus\{m_1\}\cup\{m_2\}$\;
+        $\mathcal{SC} \gets sousMot(m_1,max)+m_2$\tcc*{sousMot est une fonction qui prend en argument un mot et un entier n et renvoie le mot privé de ses n derniers caractères.}
+        }
+    }
+    }
+    \textbf{renvoyer} $SC$\;
+    
+    \caption{Assemblage($F = \{F_1,F_2,...,F_n\}$ : ensemble de mots) : superchaîne}
+\end{algorithm}
+
+\vspace{9px}
+
+Complexité : $o((n^3)*o(overlap(m,m)))$ avec n le nombre de mots et m la taille du mot le plus grand. 
+
+\newpage
+
+\section*{Exercice 3}
+
+\begin{figure}[h]
+\centering
+\matching{5}
+\caption{Graphe de chevauchement de l'\textbf{Exercice 1}}
+\end{figure}
+
+\vspace{10px}
+
+\begin{algorithm}[H]
+    \Variables {$G(V,A)$: un graphe;}
+    $V \gets F$\;
+    $A \gets \{\}$\;
+    \PourCh{mot $m_1$ de V}{
+        \PourCh{mot $m_2$ de $V\setminus \{m_1\}$}{
+        $buf \gets overlap(m_1,m_2)$\;
+        \Si{$buf > 0$}{
+        $A \gets A\cup\{m_1,m_2,buf\}$\;
+        }
+        }
+    }
+    
+    \textbf{renvoyer} $G$\;
+    \caption{creationGraphe($F = \{F_1,F_2,...,F_n\}$ : ensemble de mots) : graphe $G(V,A)$}
+\end{algorithm}
+
+\vspace{10px}
+
+Complexité : $o((n^2)*o(overlap(m,m)))$ avec n le nombre de mots et m la taille du mot le plus grand. 
+
+\section*{Exercice 4}
+
+\begin{algorithm}[H]
+    \Variables {L: liste de sommets; max : entier; savV : ensemble de sommets; savS : sommet;  savA : arête}
+    $L \gets \{\}$\;
+    $savV \gets V$\;
+    $savS\gets null$\;
+    \Tq{$|savV| > 0$}{
+        $max \gets 0$\;
+        $savA \gets null$\;
+        \PourCh{arrête $a$ de A}{
+            \Si{$a[2] > max$ et $a[1] \in savV$ et $a[0] = savS1$}{
+                $max \gets a[2]$\;
+                $savA \gets a$\;
+            }
+        }
+        \Si{$savS = null$}{
+            $savV \gets savV\setminus \{savA[0]\}$\;
+        }
+        $savV \gets savV\setminus \{savA[1]\}$\;
+        $L \gets L\cup\{savA[0]\}\cup\{savA[1]\}$\;
+        $savS \gets savA[1]$\;
+        
+    }
+    
+    
+    \textbf{renvoyer} $L \cup L[1])$\;
+    
+    \caption{cheminHamiltonien($G(V,A)$ : graphe de chevauchement) : chemin hamiltonien}
+\end{algorithm}
+
+\vspace{5px}
+
+Complexité : $o(n*m)$ avec n le nombre de sommets et m le nombre d'arêtes. 
+
+\vspace{1px}
+
+\begin{figure}[h]
+\centering
+\matchinga{5}
+\caption{Chemin hamiltonien du graphe de chevauchement de l'\textbf{Exercice 1}}
+\end{figure}
+Le chemin hamiltonien donné par cet algorithme n'est pas optimal, ce qui est logique étant donné la stratégie adoptée.
+
+\end{document}
+
