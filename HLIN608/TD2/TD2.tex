@@ -69,6 +69,7 @@
 \draw[line width=0.4mm,arrows={->[length=2.5mm,width=5mm]},bend left=25] (2.north west) to node[fill=white,draw] {2} (3.south west);
 \draw[line width=0.4mm,arrows={->[length=2.5mm,width=5mm]},bend right=25] (2.south east) to node[fill=white,draw] {1} (5.south);
 \draw[line width=0.4mm,arrows={->[length=2.5mm,width=5mm]}] (5.south west) to node[fill=white,draw] {2} (2.east);
+\draw[line width=0.4mm,arrows={->[length=2.5mm,width=5mm]}] (4.south east) to node[fill=white,draw] {4} (5.north);
 \draw[line width=0.4mm,arrows={->[length=2.5mm,width=5mm]}] (3.east) to node[fill=white,draw] {1} (5.west);
 \draw[line width=0.4mm,arrows={->[length=2.5mm,width=5mm]},bend right=25] (5.north west) to node[fill=white,draw] {1} (3.north east);
 \draw[line width=0.4mm,arrows={->[length=2.5mm,width=5mm]},bend right=25] (4.west) to node[fill=white,draw] {1} (2.north);
@@ -82,12 +83,13 @@
 \draw[opacity=0.2,line width=0.4mm,arrows={->[length=2.5mm,width=5mm]},bend right=25] (1.north west) to node[fill=white] {} (3.south east);
 \draw[line width=0.4mm,arrows={->[length=2.5mm,width=5mm]},bend right=25] (3.south) to node[fill=white,draw] {3} (1.west);
 \draw[line width=0.4mm,arrows={->[length=2.5mm,width=5mm]},bend right=25] (1.north) to node[fill=white,draw] {2} (4.south);
-\draw[opacity=0.2,line width=0.4mm,arrows={->[length=2.5mm,width=5mm]},bend left=25] (2.north west) to node[fill=white] {} (3.south west);
-\draw[line width=0.4mm,arrows={->[length=2.5mm,width=5mm]},bend right=25] (2.south east) to node[fill=white,draw] {1} (5.south);
-\draw[opacity=0.2,line width=0.4mm,arrows={->[length=2.5mm,width=5mm]}] (5.south west) to node[fill=white] {} (2.east);
+\draw[line width=0.4mm,arrows={->[length=2.5mm,width=5mm]},bend left=25] (2.north west) to node[fill=white,draw] {2} (3.south west);
+\draw[opacity=0.2,line width=0.4mm,arrows={->[length=2.5mm,width=5mm]},bend right=25] (2.south east) to node[fill=white] {} (5.south);
+\draw[line width=0.4mm,arrows={->[length=2.5mm,width=5mm]}] (5.south west) to node[fill=white,draw] {2} (2.east);
+\draw[line width=0.4mm,arrows={->[length=2.5mm,width=5mm]}] (4.south east) to node[fill=white,draw] {4} (5.north);
 \draw[opacity=0.2,line width=0.4mm,arrows={->[length=2.5mm,width=5mm]}] (3.east) to node[line width=0.4mm,fill=white] {} (5.west);
-\draw[line width=0.4mm,arrows={->[length=2.5mm,width=5mm]},bend right=25] (5.north west) to node[fill=white,draw] {1} (3.north east);
-\draw[line width=0.4mm,arrows={->[length=2.5mm,width=5mm]},bend right=25] (4.west) to node[fill=white,draw] {1} (2.north);
+\draw[opacity=0.2,line width=0.4mm,arrows={->[length=2.5mm,width=5mm]},bend right=25] (5.north west) to node[fill=white] {} (3.north east);
+\draw[opacity=0.2,line width=0.4mm,arrows={->[length=2.5mm,width=5mm]},bend right=25] (4.west) to node[fill=white] {} (2.north);
  \end{tikzpicture}
 }
 
@@ -150,9 +152,9 @@ Appliquons la méthode gloutonne pour extraire la plus petite chaîne $F$ compre
     \hline
     $F_2 : TGCATTGC$  & 0 & & 2 & 0 & 1 \\
     \hline
-    $F_3 : GCAGACC$  & \textbf{\textcolor{red}{3}} & 0 & & 0 & 1\\
+    $F_3 : GCAGACC$  & 3 & 0 & & 0 & 1\\
     \hline
-    $F_4 : AGCAAT$  & 0 & 1 & 0 & & 0 \\
+    $F_4 : AGCAAT$  & 0 & 1 & 0 & & \textbf{\textcolor{red}{4}} \\
     \hline
     $F_5 : CAATG$  & 0 & 2 & 1 & 0 & \\
     \hline
@@ -161,29 +163,29 @@ Appliquons la méthode gloutonne pour extraire la plus petite chaîne $F$ compre
 
 \vspace{3px}
 
-On remarque que le plus gros overlap est $overlap(F_3,F_1) = 3$ (les 3 dernières lettres de $F_3$ sont égales aux 3 premières de $F_1$). On obtient donc le nouveau mot $F_{3/1} = GCAG\underline{ACC}TGAG$ (la séquence d'overlap est soulignée) et on supprime $F_3$ et $F_1$.\\
+On remarque que le plus gros overlap est $overlap(F_4,F_5) = 4$ (les 4 dernières lettres de $F_4$ sont égales aux 4 premières de $F_5$). On obtient donc le nouveau mot $F_{4/5} = AG\underline{CAAT}G$ (la séquence d'overlap est soulignée) et on supprime $F_4$ et $F_5$.\\
 
 \textbf{Étape 2 :}\\
 
 \begin{center}
-\begin{tabular}{|*{5}{c|}}
+\begin{tabular}{|*{6}{c|}}
     \hline
-    & $F_{3/1} : GCAGACCTGAG$  & $F_2 : TGCATTGC$ & $F_4 : AGCAAT$ & $F_5 : CAATG$\\
+    & $F_1 : ACCTGAG$ & $F_2 : TGCATTGC$ & $F_3 : GCAGACC$ & $F_{4/5}  : AGCAATG$ \\
     \hline
-    $F_{3/1} : GCAGACCTGAG$ & & 0 & 2 & 0\\
+    $F_1 : ACCTGAG$ & & 0 & 1 & 2 \\
     \hline
-    $F_2 : TGCATTGC$ & 2 & & 0 & 1\\
+    $F_2 : TGCATTGC$  & 0 & & 2 & 0 \\
     \hline
-    $F_4 : AGCAAT$ & 0 & 1 & & \textbf{\textcolor{red}{4}}\\
+    $F_3 : GCAGACC$  & \textbf{\textcolor{red}{3}} & 0 & & 0 \\
     \hline
-    $F_5 : CAATG$ & 1 & 2 & 0 &\\
+    $F_{4/5} : AGCAATG$ & 0 & 2 & 1 &  \\
     \hline
 \end{tabular}
 \end{center}
 
 \vspace{5px}
 
-On remarque que le plus gros overlap est $overlap(F_4,F_5) = 4$ (les 4 dernières lettres de $F_4$ sont égales aux 4 premières de $F_5$). On obtient donc le nouveau mot $F_{4/5} = AG\underline{CAAT}G$ (la séquence d'overlap est soulignée) et on supprime $F_4$ et $F_5$.\\
+On remarque que le plus gros overlap est $overlap(F_3,F_1) = 3$ (les 3 dernières lettres de $F_3$ sont égales aux 3 premières de $F_1$). On obtient donc le nouveau mot $F_{3/1} = GCAG\underline{ACC}TGAG$ (la séquence d'overlap est soulignée) et on supprime $F_3$ et $F_1$.\\
 
 \textbf{Étape 3 :}\\
 
@@ -263,7 +265,7 @@ Finalement, l'algorithme renvoi la séquence (de longueur 22) : $$F_{((3/1)/(4/5
 
 \vspace{9px}
 
-Complexité : $o((n^3)*o(overlap(m,m)))$ avec n le nombre de mots et m la taille du mot le plus grand. 
+Complexité : $o((n^3)*o(overlap(m,m)))$ avec n le nombre de mots et m la taille du mot le plus grand. C'est algorithme pourrait être amélioré en gardant en mémoire les overlaps par pair de sommet afin d'éviter de les recalculer; l'algorithme serait alors en $o((n^2)*o(overlap(m,m)))$
 
 \newpage
 
@@ -340,7 +342,8 @@ Complexité : $o(n*m)$ avec n le nombre de sommets et m le nombre d'arêtes.
 \matchinga{5}
 \caption{Chemin hamiltonien du graphe de chevauchement de l'\textbf{Exercice 1}}
 \end{figure}
-Le chemin hamiltonien donné par cet algorithme n'est pas optimal, ce qui est logique étant donné la stratégie adoptée.
+
+Le chemin hamiltonien vaut donc 13 et on peut reconnaître le motif trouvé à l'exercice 1.
 
 \end{document}
 
