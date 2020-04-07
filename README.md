@@ -1,7 +1,8 @@
 # Nous sommes confinés et nous sommes les Gens Bons
 ### [HLIN602](https://github.com/JeanSebastienBach/LesGensBons/tree/master/HLIN602) - Logique 2
 * [TD5](https://github.com/JeanSebastienBach/LesGensBons/tree/master/HLIN602/TD5) - Manipulations syntaxiques
-* [TD6](https://github.com/JeanSebastienBach/LesGensBons/tree/master/HLIN602/TD6) - Prolog
+* [TD6](https://github.com/JeanSebastienBach/LesGensBons/tree/master/HLIN602/TD6) - Preuve Séquents
+* [TD7](https://github.com/JeanSebastienBach/LesGensBons/tree/master/HLIN602/TD7) - Prolog
 ### [HLIN603](https://github.com/JeanSebastienBach/LesGensBons/tree/master/HLIN603) - Objets avancés
 * [TD3](https://github.com/JeanSebastienBach/LesGensBons/tree/master/HLIN603/TD3) - OCaml : Objets avancés
 * [TD4](https://github.com/JeanSebastienBach/LesGensBons/tree/master/HLIN603/TD4) - Smalltalk

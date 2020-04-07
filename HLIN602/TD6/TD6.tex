@@ -1,0 +1,351 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=1.5cm, bottom=3.5cm, left=1.5cm, right=1.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{french}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+
+\usepackage{graphics} %inclusion de figures
+\usepackage{graphicx} %inclusion de figures
+
+\usepackage{sidecap}
+\sidecaptionvpos{figure}{c}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{numprint}
+\usepackage[bottom]{footmisc}
+\usepackage[justification=centering]{caption}
+\usepackage[french,frenchkw,boxed,ruled,lined]{algorithm2e}
+\SetKw{KwDe}{de}
+\SetKw{KwOu}{ou}
+\SetKw{KwEt}{et}
+\SetKw{Kwrenv}{renvoyer}
+\SetKwInput{Variables}{Variables}
+\SetKwInput{Variable}{Variable}
+\usepackage{xifthen}
+\usepackage{colortbl}
+\definecolor{green}{rgb}{0.0, 0.5, 0.0}
+\usepackage{array,multirow}
+\usepackage{wrapfig}
+\usepackage{bussproofs}
+\usepackage{stmaryrd}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\definecolor{processblue}{cmyk}{0.96,0,0,0}
+
+\newcommand{\exo}[1]{\Large \textbf{Exercice #1} \vspace{10px} \normalsize}
+\newcommand\tab[1][12pt]{\hspace*{#1}}
+
+\newcommand{\titlebox}[2]{%
+\tikzstyle{titlebox}=[rectangle,inner sep=10pt,inner ysep=10pt,draw]%
+\tikzstyle{title}=[fill=white]%
+%
+\bigskip\noindent\begin{tikzpicture}
+\node[titlebox] (box){%
+    \begin{minipage}{0.94\textwidth}
+#2
+    \end{minipage}
+};
+%\draw (box.north west)--(box.north east);
+\node[title] at (box.north) {#1};
+\end{tikzpicture}\bigskip%
+}
+
+% INFOS
+\author{Antoine AFFLATET, Aurélien BESNIER, Hayaat HEBIRET, Josua PHILIPPOT et Jérémie ROUX\\(L3 Groupe C)}
+\title{HLIN602 - Logique - TD Preuve Séquents}
+\date{2019 - 2020}
+
+\setlength{\parindent}{0cm}
+
+\begin{document}
+
+\maketitle
+
+\vspace{10 px}
+
+\exo{A(b)}
+
+Montrons que les séquents 1, 2 et 3 avant l'application de leur règle respectivement $\land_{g}$, $\lor_{d}$ et $\neg_{d}$ sont sémantiquement équivalents aux séquents après l'application.
+
+Soit I une interprétation de domaine D et une assignation $\rho$ des variables des séquents dans le domaine D.\\
+\begin{prooftree}
+{\bfseries (1)}
+            \AxiomC{$\Gamma, A , B \vdash \Phi$}
+            \RightLabel{\scriptsize$\land_{g}$}
+            \UnaryInfC{$A \land B ,\Gamma \vdash \Phi$}
+\end{prooftree}
+
+\begin{prooftree}
+{\bfseries (2)}
+            \AxiomC{$\Gamma\vdash A , B , \Phi$}
+            \RightLabel{\scriptsize$\lor_{d}$}
+            \UnaryInfC{$\Gamma \vdash A \lor B , \Phi$}
+\end{prooftree}
+
+\begin{prooftree}
+{\bfseries (3)}
+            \AxiomC{$A,\Gamma\vdash\Phi$}
+            \RightLabel{\scriptsize$\neg_{d}$}
+            \UnaryInfC{$ \Gamma \vdash \neg A ,\Phi$}
+\end{prooftree}
+
+\textbf{(1)}\\
+$\llbracket A , B ,\Gamma\vdash \Phi \rrbracket^{I}_ {\rho}$\\
+$= \llbracket (A \land B \land \Gamma) \Rightarrow \Phi\rrbracket^{I}_ {\rho}$\\
+$= \llbracket A \land B \land \Gamma \rrbracket^{I}_ {\rho} \Rightarrow_{B} \llbracket \Phi\rrbracket^{I}_ {\rho}$\\
+$= (\llbracket A \rrbracket^{I}_ {\rho} \land_{B} \llbracket B \rrbracket^{I}_ {\rho} \land_{B} \llbracket \Gamma \rrbracket^{I}_ {\rho}) \Rightarrow_{B} \llbracket \Phi \rrbracket^{I}_ {\rho}$\\
+
+\vspace{10px}
+
+$\llbracket A \land B , \Gamma \vdash \Phi \rrbracket^{I}_ {\rho}$\\
+$= \llbracket (A \land B \land \Gamma) \Rightarrow \Phi\rrbracket^{I}_ {\rho}$\\
+$= \llbracket A \land B \land \Gamma\rrbracket^{I}_ {\rho} \Rightarrow_{B} \llbracket \Phi\rrbracket^{I}_ {\rho}$\\
+$= (\llbracket A \rrbracket^{I}_ {\rho} \land_{B} \llbracket B \rrbracket^{I}_ {\rho} \land_{B} \llbracket \Gamma \rrbracket^{I}_ {\rho}) \Rightarrow_{B} \llbracket \Phi \rrbracket^{I}_ {\rho}$\\
+
+\vspace{10 px}
+
+On voit donc que les deux séquents du \textbf{(1)} sont sémantiquement équivalents. La règle $\land_{g}$ ne modifie donc pas la sémantique de la formule. Ainsi, si avant l'application de la règle une formule est valide, elle le sera après l'application.
+
+\vspace{10px}
+
+\textbf{(2)}\\
+$\llbracket \Gamma\vdash A,B,\Phi \rrbracket^{I}_ {\rho}$\\
+$= \llbracket \Gamma \Rightarrow (A \lor B \lor \Phi)\rrbracket^{I}_ {\rho}$\\
+$= \llbracket \Gamma\rrbracket^{I}_ {\rho} \Rightarrow_{B} \llbracket A \lor B \lor \Phi\rrbracket^{I}_ {\rho}$\\
+$= \llbracket \Gamma \rrbracket^{I}_ {\rho} \Rightarrow_{B} (\llbracket A \rrbracket^{I}_ {\rho} \lor_{B} \llbracket B \rrbracket^{I}_ {\rho} \lor_{B} \llbracket \Phi\rrbracket^{I}_ {\rho})$\\
+
+\vspace{10 px}
+
+$\llbracket \Gamma\vdash A \lor B,\Phi\rrbracket^{I}_ {\rho}$\\
+$= \llbracket \Gamma \Rightarrow (A \lor B \lor \Phi)\rrbracket^{I}_ {\rho}$\\
+$= \llbracket \Gamma\rrbracket^{I}_ {\rho} \Rightarrow_{B} \llbracket A \lor B \lor \Phi\rrbracket^{I}_ {\rho}$\\
+$= \llbracket \Gamma \rrbracket^{I}_ {\rho} \Rightarrow_{B} (\llbracket A \rrbracket^{I}_ {\rho} \lor_{B} \llbracket B \rrbracket^{I}_ {\rho} \lor_{B} \llbracket \Phi \rrbracket^{I}_ {\rho})$\\
+
+\vspace{10px}
+
+On voit donc que les deux séquents du \textbf{(2)} sont sémantiquement équivalents. La règle $\lor_{d}$ ne modifie donc pas la sémantique de la formule. Ainsi, si avant l'application de la règle une formule est valide, elle le sera après l'application.\\
+
+\vspace{10px}
+
+{\bfseries (3)}\\
+$\llbracket A,\Gamma\vdash \Phi \rrbracket^{I}_ {\rho}$\\
+$= \llbracket (A \land \Gamma) \Rightarrow \Phi\rrbracket^{I}_ {\rho}$\\
+$= \llbracket A \land \Gamma \rrbracket^{I}_ {\rho} \Rightarrow_{B} \llbracket \Phi\rrbracket^{I}_ {\rho}$\\
+$= (\llbracket A \rrbracket^{I}_ {\rho} \land_{B} \llbracket \Gamma \rrbracket^{I}_ {\rho} )\Rightarrow_{B} \llbracket \Phi \rrbracket^{I}_ {\rho}$\\
+$= \neg_{B} \llbracket A \rrbracket^{I}_ {\rho} \lor_{B} \neg_{B} \llbracket \Gamma \rrbracket^{I}_ {\rho} \lor_{d} \llbracket\Phi \rrbracket^{I}_ {\rho}$\\
+\vspace{10px}
+
+$\llbracket \Gamma\vdash \neg A \lor \Phi \rrbracket^{I}_ {\rho}$\\
+$= \llbracket \Gamma \Rightarrow \neg  A \lor \Phi\rrbracket^{I}_ {\rho}$\\
+$= \llbracket \Gamma \rrbracket^{I}_ {\rho} \Rightarrow_{B} \llbracket \neg  A \lor \Phi\rrbracket^{I}_ {\rho}$\\
+$= \llbracket \Gamma \rrbracket^{I}_ {\rho} \Rightarrow_{B} \llbracket \neg A \rrbracket^{I}_ {\rho} \lor_{d} \llbracket\Phi \rrbracket^{I}_ {\rho}$\\
+$= \llbracket \Gamma \rrbracket^{I}_ {\rho} \Rightarrow_{B} \neg_{B} \llbracket A \rrbracket^{I}_ {\rho} \lor_{d} \llbracket\Phi \rrbracket^{I}_ {\rho}$\\
+$= \neg_{B} \llbracket \Gamma \rrbracket^{I}_ {\rho} \lor_{d} \neg_{B} \llbracket A \rrbracket^{I}_ {\rho} \lor_{B} \llbracket\Phi \rrbracket^{I}_ {\rho}$\\
+\vspace{10px}
+
+On voit donc que les deux séquents du \textbf{(3)} sont sémantiquement équivalents. La règle $\neg_{d}$ ne modifie donc pas la sémantique de la formule. Ainsi, si avant l'application de la règle une formule est valide, elle le sera après l'application. \\
+
+\vspace{10px}
+
+\exo{A(c)}\\
+\begin{prooftree}
+{\bfseries (4)}
+            \AxiomC{$\Gamma \vdash \Phi, A(t)$}
+            \RightLabel{\scriptsize$\exists_{d}$}
+            \UnaryInfC{$\Gamma \vdash \Phi,\exists.x A(x)$}
+\end{prooftree}
+
+\begin{prooftree}
+{\bfseries (5)}
+            \AxiomC{$\Gamma \vdash \Phi, A(x)$}
+            \RightLabel{\scriptsize$\forall_{d}$}
+            \UnaryInfC{$\Gamma \vdash \Phi, \forall .x A(x)$}
+\end{prooftree}
+
+\begin{prooftree}
+{\bfseries (6)}
+            \AxiomC{$\Gamma, A(t)\vdash \Phi$}
+            \RightLabel{\scriptsize$\forall_{g}$}
+            \UnaryInfC{$\Gamma, \forall .x A(x)\vdash \Phi$}
+\end{prooftree}
+
+\textbf{(4)}\\
+$\llbracket \Gamma \vdash \Phi \lor A(t) \rrbracket^{I}_ {\rho}$\\
+$=\llbracket \Gamma \Rightarrow \Phi \lor A(t) \rrbracket^{I}_ {\rho}$\\
+$=\llbracket \Gamma \rrbracket^{I}_ {\rho} \Rightarrow_{B} \llbracket \Phi \lor A(t) \rrbracket^{I}_ {\rho}$\\
+$=\llbracket \Gamma \rrbracket^{I}_ {\rho} \Rightarrow_{B} (\llbracket \Phi \rrbracket^{I}_ {\rho} \lor_{B}  \llbracket A(t) \rrbracket^{I}_ {\rho})$\\
+$=\llbracket \Gamma \rrbracket^{I}_ {\rho} \Rightarrow_{B}( \llbracket \Phi \rrbracket^{I}_ {\rho} \lor_{B} I ( A (\llbracket (t) \rrbracket^{I}_ {\rho})))$\\
+$= \llbracket \Gamma \rrbracket^{I}_ {\rho} \Rightarrow_{B} (\llbracket\Phi \rrbracket^{I}_ {\rho} \lor_{B} I(A(I(t))))$\\
+$= \llbracket \Gamma \rrbracket^{I}_ {\rho} \Rightarrow_{B} (\llbracket\Phi \rrbracket^{I}_ {\rho} \lor_{B} I(A)(t))$\\
+\vspace{10px}
+
+$\Gamma \vdash \Phi,\exists x.A(x)$\\
+$= \llbracket \Gamma \Rightarrow \Phi \lor \exists x.A(x) \rrbracket^{I}_ {\rho}$\\
+$= \llbracket \Gamma \rrbracket^{I}_ {\rho} \Rightarrow \llbracket \Phi \lor \exists x.A(x) \rrbracket^{I}_ {\rho}$\\
+$= \llbracket \Gamma \rrbracket^{I}_ {\rho} \Rightarrow_{B} (\llbracket\Phi \rrbracket^{I}_ {\rho} \lor_{B} \llbracket \exists x.A(x) \rrbracket^{I}_ {\rho})$\\
+$= \llbracket \Gamma \rrbracket^{I}_ {\rho} \Rightarrow_{B} (\llbracket\Phi \rrbracket^{I}_ {\rho} \lor_{B} \bigcup_{t \in D} \llbracket A(x) \rrbracket^{I}_ {\rho[t/x]})$\\
+$= \llbracket \Gamma \rrbracket^{I}_ {\rho} \Rightarrow_{B} (\llbracket\Phi \rrbracket^{I}_ {\rho} \lor_{B} \bigcup_{t \in D} I(A)\llbracket x \rrbracket^{I}_ {\rho[t/x]})$\\
+$= \llbracket \Gamma \rrbracket^{I}_ {\rho} \Rightarrow_{B} (\llbracket\Phi \rrbracket^{I}_ {\rho} \lor_{B} \bigcup_{t \in D} I(A) {\rho[t/x]}(x))$\\
+$= \llbracket \Gamma \rrbracket^{I}_ {\rho} \Rightarrow_{B} (\llbracket\Phi \rrbracket^{I}_ {\rho} \lor_{B} \bigcup_{t \in D} I(A)(t))$\\
+$= \llbracket \Gamma \rrbracket^{I}_ {\rho} \Rightarrow_{B} (\llbracket\Phi \rrbracket^{I}_ {\rho} \lor_{B} I(A)(t))$\\
+
+\vspace{10px}
+
+On voit donc que les deux séquents du \textbf{(4)} sont sémantiquement équivalents. La règle $\exists_{d}$ ne modifie donc pas la sémantique de la formule. Ainsi, si avant l'application de la règle une formule est valide, elle le sera après l'application. \\
+
+\vspace{10px}
+
+\textbf{(5)}\\
+$\llbracket \Gamma \vdash \Phi, A(x) \rrbracket^{I}_ {\rho}$\\
+$= \llbracket \Gamma \Rightarrow \Phi \lor A(x) \rrbracket^{I}_ {\rho}$\\
+$= \llbracket \Gamma \rrbracket^{I}_ {\rho} \Rightarrow_{B} \llbracket\Phi \lor A(x) \rrbracket^{I}_ {\rho}$\\
+$= \llbracket \Gamma \rrbracket^{I}_ {\rho} \Rightarrow_{B} (\llbracket\Phi \lor A(x) \rrbracket^{I}_ {\rho})$\\
+$= \llbracket \Gamma \rrbracket^{I}_ {\rho} \Rightarrow_{B} (\llbracket\Phi \rrbracket^{I}_ {\rho} \lor_{B} \llbracket A(x) \rrbracket^{I}_ {\rho})$\\
+$= \llbracket \Gamma \rrbracket^{I}_ {\rho} \Rightarrow_{B} (\llbracket\Phi \rrbracket^{I}_ {\rho} \lor_{B} I(A(\llbracket x \rrbracket^{I}_ {\rho})))$\\
+$= \llbracket \Gamma \rrbracket^{I}_ {\rho} \Rightarrow_{B} (\llbracket\Phi \rrbracket^{I}_ {\rho} \lor_{B} I(A(I(x))))$\\
+$= \llbracket \Gamma \rrbracket^{I}_ {\rho} \Rightarrow_{B} (\llbracket\Phi \rrbracket^{I}_ {\rho} \lor_{B} I(A)(x))$\\
+\vspace{10px}
+
+$\llbracket \Gamma \vdash \Phi,\forall x.A(x) \rrbracket^{I}_ {\rho}$\\
+$= \llbracket \Gamma \Rightarrow \Phi \lor \forall.x A(x) \rrbracket^{I}_ {\rho}$\\
+$= \llbracket \Gamma \rrbracket^{I}_ {\rho} \Rightarrow \llbracket \Phi \lor \forall x.A(x) \rrbracket^{I}_ {\rho}$\\
+$= \llbracket \Gamma \rrbracket^{I}_ {\rho} \Rightarrow_{B} (\llbracket\Phi \rrbracket^{I}_ {\rho} \lor_{B} \llbracket \forall x.A(x) \rrbracket^{I}_ {\rho})$\\
+$= \llbracket \Gamma \rrbracket^{I}_ {\rho} \Rightarrow_{B} (\llbracket\Phi \rrbracket^{I}_ {\rho} \lor_{B} \bigcap_{x \in D}\llbracket A(x) \rrbracket^{I}_ {\rho[x/x]})$\\
+$= \llbracket \Gamma \rrbracket^{I}_ {\rho} \Rightarrow_{B} (\llbracket\Phi \rrbracket^{I}_ {\rho} \lor_{B} \bigcap_{x \in D} I(A) \llbracket x \rrbracket^{I}_ {\rho[x/x]})$\\
+$= \llbracket \Gamma \rrbracket^{I}_ {\rho} \Rightarrow_{B} (\llbracket\Phi \rrbracket^{I}_ {\rho} \lor_{B} \bigcap_{x \in D} I(A)\rho[x/x](x))$\\
+$= \llbracket \Gamma \rrbracket^{I}_ {\rho} \Rightarrow_{B} (\llbracket\Phi \rrbracket^{I}_ {\rho} \lor_{B} \bigcap_{x \in D} I(A)(x))$\\
+$= \llbracket \Gamma \rrbracket^{I}_ {\rho} \Rightarrow_{B} (\llbracket\Phi \rrbracket^{I}_ {\rho} \lor_{B} I(A)(x))$\\
+
+\vspace{10px}
+
+On voit donc que les deux séquents du \textbf{(5)} sont sémantiquement équivalents. La règle $\forall_{d}$ ne modifie donc pas la sémantique de la formule. Ainsi, si avant l'application de la règle une formule est valide, elle le sera après l'application. \\
+
+\vspace{10px}
+
+\textbf{(6)}\\
+$\llbracket \Gamma, A(t) \vdash \Phi \rrbracket^{I}_{\rho}$\\
+$=\llbracket \Gamma \land A(t) \Rightarrow \Phi \rrbracket^{I}_{\rho}$\\
+$=\llbracket \Gamma  \land A(t)\rrbracket^{I}_{\rho} \Rightarrow_{B} \llbracket \Phi \rrbracket^{I}_{\rho}$\\
+$=(\llbracket \Gamma \rrbracket^{I}_{\rho} \land_{B} \llbracket A(t)\rrbracket^{I}_{\rho}) \Rightarrow_{B} \llbracket \Phi \rrbracket^{I}_{\rho}$\\
+$=(\llbracket \Gamma \rrbracket^{I}_{\rho} \land_{B}  I (A) \llbracket x \rrbracket^{I}_{\rho[t/x]}) \Rightarrow_{B} \llbracket \Phi \rrbracket^{I}_{\rho}$\\
+$=(\llbracket \Gamma \rrbracket^{I}_{\rho} \land_{B} I(A)\rho[t/x](x)) \Rightarrow_{B} \llbracket \Phi \rrbracket^{I}_{\rho}$\\
+$=(\llbracket \Gamma \rrbracket^{I}_{\rho} \land_{B} I(A)(x)) \Rightarrow_{B} \llbracket \Phi \rrbracket^{I}_{\rho}$\\
+
+\vspace{10px}
+
+
+
+
+$\llbracket \Gamma, \forall x.A(x) \vdash \Phi \rrbracket^{I}_{\rho}$\\
+$=\llbracket \Gamma \land \forall x.A(x) \Rightarrow \Phi \rrbracket^{I}_{\rho}$\\
+$=\llbracket \Gamma \land \forall x.A(x)\rrbracket^{I}_{\rho} \Rightarrow_{B}\llbracket \Phi \rrbracket^{I}_{\rho}$\\
+$=(\llbracket \Gamma \rrbracket^{I}_{\rho}\land_{B} \llbracket\forall x.A(x)\rrbracket^{I}_{\rho}) \Rightarrow_{B}\llbracket \Phi \rrbracket^{I}_{\rho}$\\
+$=(\llbracket \Gamma \rrbracket^{I}_{\rho}\land_{B}  \bigcap_{t \in D} \llbracket A(x)\rrbracket^{I}_{\rho[t/x]}) \Rightarrow_{B}\llbracket \Phi \rrbracket^{I}_{\rho}$\\
+$=(\llbracket \Gamma \rrbracket^{I}_{\rho}\land_{B}  \bigcap_{t \in D} I (A) \llbracket x \rrbracket^{I}_{\rho[t/x]}) \Rightarrow_{B}\llbracket \Phi \rrbracket^{I}_{\rho}$\\
+$=(\llbracket \Gamma \rrbracket^{I}_{\rho}\land_{B}  \bigcap_{t \in D} I(A)\rho[t/x](x)) \Rightarrow_{B}\llbracket \Phi \rrbracket^{I}_{\rho}$\\
+$=(\llbracket \Gamma \rrbracket^{I}_{\rho}\land_{B}   I(A)(x)) \Rightarrow_{B}\llbracket \Phi \rrbracket^{I}_{\rho}$\\
+\vspace{10px}
+
+On voit donc que les deux séquents du \textbf{(6)} sont sémantiquement équivalents. La règle $\forall_{g}$ ne modifie donc pas la sémantique de la formule. Ainsi, si avant l'application de la règle une formule est valide, elle le sera après l'application. \\
+
+\vspace{10px}
+
+\exo{B(a)}\\
+\begin{prooftree}
+{\bfseries (7)}
+            \AxiomC{$\Gamma, A \vdash \Phi, B$}
+            \RightLabel{\scriptsize$\Rightarrow_{d}$}
+            \UnaryInfC{$\Gamma \vdash \Phi, A \Rightarrow B$}
+\end{prooftree}
+
+
+\begin{prooftree}
+{\bfseries (8)}
+            \AxiomC{$\Gamma \vdash \Phi, A$}
+            \RightLabel{\scriptsize$\neg_{g}$}
+            \UnaryInfC{$\Gamma, \neg A \vdash \Phi$}
+\end{prooftree}
+
+\begin{prooftree}
+{\bfseries (9)}
+            \AxiomC{$\Gamma \vdash \Phi, B$}
+            \AxiomC{$\Gamma \vdash \Phi, A$}
+            \RightLabel{\scriptsize$\land_{d}$}
+            \BinaryInfC{$\Gamma \vdash \Phi, A \land B$}
+\end{prooftree}
+
+\textbf{(7)}\\
+$\llbracket \Gamma, A \vdash \Phi, B \rrbracket^{I}_ {\rho}$\\
+$= \llbracket \Gamma \land A \Rightarrow \Phi \lor B \rrbracket^{I}_ {\rho}$\\
+$= \llbracket \Gamma \land A \rrbracket^{I}_ {\rho} \Rightarrow_{B} \llbracket\Phi \lor B \rrbracket^{I}_ {\rho}$\\
+$= \llbracket \Gamma \land A \rrbracket^{I}_ {\rho} \Rightarrow_{B} \llbracket\Phi \lor B \rrbracket^{I}_ {\rho}$\\
+$= \llbracket \Gamma \rrbracket^{I}_ {\rho} \land_{B} \llbracket A \rrbracket^{I}_ {\rho} \Rightarrow_{B} \llbracket\Phi \rrbracket^{I}_ {\rho} \lor_{B} \llbracket B \rrbracket^{I}_ {\rho}$\\
+$= \neg_{B}(\llbracket \Gamma \rrbracket^{I}_ {\rho} \land_{B} \llbracket A \rrbracket^{I}_ {\rho}) \lor_{B} \llbracket\Phi \rrbracket^{I}_ {\rho} \lor_{B} \llbracket B \rrbracket^{I}_ {\rho}$\\
+$= \neg_{B}\llbracket \Gamma \rrbracket^{I}_ {\rho} \lor_{B} \neg_{B}\llbracket A \rrbracket^{I}_ {\rho} \lor_{B} \llbracket\Phi \rrbracket^{I}_ {\rho} \lor_{B} \llbracket B \rrbracket^{I}_ {\rho}$\\
+\vspace{10px}
+
+$\llbracket \Gamma \vdash \Phi, A \Rightarrow B \rrbracket^{I}_ {\rho}$\\
+$= \llbracket \Gamma \Rightarrow \Phi \lor (A \Rightarrow B) \rrbracket^{I}_ {\rho}$\\
+$= \llbracket \Gamma \rrbracket^{I}_ {\rho} \Rightarrow \llbracket \Phi \lor (A \Rightarrow B) \rrbracket^{I}_ {\rho}$\\
+$= \llbracket \Gamma \rrbracket^{I}_ {\rho} \Rightarrow_{B} \llbracket \Phi \lor (A \Rightarrow B) \rrbracket^{I}_ {\rho}$\\
+$= \neg_{B}\llbracket \Gamma \rrbracket^{I}_ {\rho} \lor_{B} \llbracket \Phi \lor (A \Rightarrow B) \rrbracket^{I}_ {\rho}$\\
+$= \neg_{B}\llbracket \Gamma \rrbracket^{I}_ {\rho} \lor_{B} \llbracket \Phi \rrbracket^{I}_ {\rho} \lor_{B} (\llbracket A \Rightarrow B \rrbracket^{I}_ {\rho})$\\
+$= \neg_{B}\llbracket \Gamma \rrbracket^{I}_ {\rho} \lor_{B} \llbracket \Phi \rrbracket^{I}_ {\rho} \lor_{B} (\llbracket A \rrbracket^{I}_ {\rho} \Rightarrow_{B} \llbracket B \rrbracket^{I}_ {\rho})$\\
+$= \neg_{B}\llbracket \Gamma \rrbracket^{I}_ {\rho} \lor_{B} \llbracket \Phi \rrbracket^{I}_ {\rho} \lor_{B} \neg_{B}\llbracket A \rrbracket^{I}_{\rho} \lor_{B} \llbracket B \rrbracket^{I}_ {\rho}$\\
+$= \neg_{B}\llbracket \Gamma \rrbracket^{I}_ {\rho} \lor_{B} \neg_{B}\llbracket A \rrbracket^{I}_{\rho} \lor_{B} \llbracket \Phi \rrbracket^{I}_ {\rho} \lor_{B} \llbracket B \rrbracket^{I}_ {\rho}$\\
+
+On voit donc que les deux séquents du \textbf{(7)} sont sémantiquement équivalents. La règle $\Rightarrow_{d}$ ne modifie donc pas la sémantique de la formule. La règle est donc réversible, son application ne modifie pas la validité de la formule. \\
+
+
+\textbf{(8)}\\
+$\llbracket \Gamma \vdash \Phi, A \rrbracket^{I}_ {\rho}$\\
+$= \llbracket \Gamma \Rightarrow \Phi \lor A\rrbracket^{I}_ {\rho}$\\
+$= \llbracket \Gamma \rrbracket^{I}_ {\rho} \Rightarrow_{B} \llbracket \Phi \lor A\rrbracket^{I}_ {\rho}$\\
+$= \llbracket \Gamma \rrbracket^{I}_ {\rho}\Rightarrow_{B} \llbracket \Phi \rrbracket^{I}_ {\rho} \lor_{B} \llbracket A \rrbracket^{I}_ {\rho}  $\\
+$= \neg_{B} \llbracket \Gamma \rrbracket^{I}_ {\rho} \lor_{B} \llbracket\Phi \rrbracket^{I}_ {\rho} \lor_{B} \llbracket A \rrbracket^{I}_ {\rho}$\\
+\vspace{10px}
+
+$\llbracket \Gamma \land \neg A \vdash \Phi \rrbracket^{I}_ {\rho}$\\
+$= \llbracket \Gamma \land \neg  A \Rightarrow  \Phi \rrbracket^{I}_ {\rho}$\\
+$= \llbracket \Gamma \land \neg  A\rrbracket^{I}_ {\rho} \Rightarrow_{B} \llbracket \Phi \rrbracket^{I}_ {\rho}$\\
+$= (\llbracket \Gamma \rrbracket^{I}_ {\rho}\land_{B} \llbracket \neg A \rrbracket^{I}_ {\rho}) \Rightarrow_{B}  \llbracket\Phi \rrbracket^{I}_ {\rho}$\\
+$=  \neg_{B}(\llbracket \Gamma \rrbracket^{I}_ {\rho} \land_{B} \neg_{B} \llbracket A \rrbracket^{I}_ {\rho}) \lor_{B} \llbracket\Phi \rrbracket^{I}_ {\rho}$\\
+$= \neg_{B} \llbracket \Gamma \rrbracket^{I}_ {\rho} \lor_{B} \llbracket A \rrbracket^{I}_ {\rho} \lor_{B} \llbracket\Phi \rrbracket^{I}_ {\rho}$\\
+$= \neg_{B} \llbracket \Gamma \rrbracket^{I}_ {\rho} \lor_{B} \llbracket\Phi \rrbracket^{I}_ {\rho} \lor_{B} \llbracket A \rrbracket^{I}_ {\rho}$\\
+\vspace{10px}
+
+On voit donc que les deux séquents du \textbf{(8)} sont sémantiquement équivalents. La règle $\neg_{g}$ ne modifie donc pas la sémantique de la formule. La règle est donc réversible, son application ne modifie pas la validité de la formule. \\
+
+\vspace{10px}
+\textbf{(9)}\\
+ $\llbracket \Gamma \vdash \Phi, B  \rrbracket^{I}_{\rho} \land_{B} \llbracket\Gamma \vdash \Phi, A \rrbracket^{I}_{\rho}$\\
+ $=\llbracket \Gamma \Rightarrow (\Phi \lor B ) \rrbracket^{I}_{\rho} \land_{B} \llbracket\Gamma \Rightarrow( \Phi\lor A) \rrbracket^{I}_{\rho}$\\
+ $=(\llbracket \Gamma \rrbracket^{I}_{\rho} \Rightarrow_{B} \llbracket \Phi \lor B \rrbracket^{I}_{\rho}) \land_{B} \llbracket\Gamma \Rightarrow( \Phi\lor A) \rrbracket^{I}_{\rho}$\\
+ $= (\llbracket \Gamma \rrbracket^{I}_{\rho} \Rightarrow_{B} (\llbracket \Phi \rrbracket^{I}_{\rho} \lor_{B} \llbracket B \rrbracket^{I}_{\rho})) \land_{B} \llbracket\Gamma \Rightarrow( \Phi\lor A) \rrbracket^{I}_{\rho}$\\
+$= (\llbracket \Gamma \rrbracket^{I}_{\rho} \Rightarrow_{B} (\llbracket \Phi \rrbracket^{I}_{\rho} \lor_{B} \llbracket B \rrbracket^{I}_{\rho})) \land_{B} (\llbracket \Gamma \rrbracket^{I}_{\rho} \Rightarrow_{B} \llbracket \Phi\lor A \rrbracket^{I}_{\rho})$\\
+$=(\llbracket \Gamma \rrbracket^{I}_{\rho} \Rightarrow_{B} (\llbracket \Phi \rrbracket^{I}_{\rho} \lor_{B} \llbracket B \rrbracket^{I}_{\rho})) \land_{B} (\llbracket \Gamma \rrbracket^{I}_{\rho} \Rightarrow_{B} (\llbracket \Phi\rrbracket^{I}_{\rho} \lor_{B} \llbracket A \rrbracket^{I}_{\rho}))$\\
+$= (\neg_{B} \llbracket \Gamma \rrbracket^{I}_{\rho} \lor_{B} \llbracket \Phi \rrbracket^{I}_{\rho} \lor_{B} \llbracket B \rrbracket^{I}_{\rho}) \land_{B} (\neg_{B}\llbracket \Gamma \rrbracket^{I}_{\rho} \lor_{B} \llbracket \Phi \rrbracket^{I}_{\rho} \lor_{B} \llbracket A \rrbracket^{I}_{\rho})$\\
+$= \neg_{B} \llbracket \Gamma \rrbracket^{I}_{\rho} \lor_{B} \llbracket \Phi \rrbracket^{I}_{\rho} \lor_{B} (\llbracket A \rrbracket^{I}_{\rho} \land_{B} B \rrbracket^{I}_{\rho})$\\
+\vspace{10px}
+
+$\llbracket \Gamma \vdash \Phi, A \land B \rrbracket^{I}_{\rho}$\\
+$= \llbracket \Gamma \Rightarrow \Phi, A \land B \rrbracket^{I}_{\rho}$\\
+$= \llbracket \Gamma \Rightarrow \Phi \lor (A \land B) \rrbracket^{I}_{\rho}$\\
+$= \llbracket \Gamma \rrbracket^{I}_{\rho} \Rightarrow_{B} (\llbracket \Phi \lor (A \land B) \rrbracket^{I}_{\rho})$\\
+$= \neg_{B} \llbracket \Gamma \rrbracket^{I}_{\rho} \lor_{B} \llbracket \Phi \lor (A \land B) \rrbracket^{I}_{\rho})$\\
+$= \neg_{B} \llbracket \Gamma \rrbracket^{I}_{\rho} \lor_{B} (\llbracket \Phi \rrbracket^{I}_{\rho} \lor_{B} (\llbracket A \land B \rrbracket^{I}_{\rho}))$\\
+$= \neg_{B} \llbracket \Gamma \rrbracket^{I}_{\rho} \lor_{B} \llbracket \Phi \rrbracket^{I}_{\rho} \lor_{B} (\llbracket A \rrbracket^{I}_{\rho} \land_{B} \llbracket B \rrbracket^{I}_{\rho})$\\
+
+\vspace{10px}
+
+On voit donc que les deux séquents du \textbf{(9)} sont sémantiquement équivalents. La règle $\land_{d}$ ne modifie donc pas la sémantique de la formule. La règle est donc réversible, son application ne modifie pas la validité de la formule. \\
+
+
+\end{document}

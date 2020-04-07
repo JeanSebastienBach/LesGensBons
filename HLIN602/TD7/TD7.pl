@@ -113,6 +113,8 @@ descendant(X,Y) :- parent(Z,X), descendant(Z,Y).
 /* MEMEFAMILLE(X,Y) : X et Y ont un ancêtre commun */
 memefamille(X,Y) :- ancetre(Z,X), ancetre(Z,Y).
 
+
+
 /* EXERCICE B */
 
 q(X,Z) :- p(X,Y), p(Y,Z).
@@ -123,6 +125,36 @@ q(U,[]) -> U = [1,1].
 q(U,[1,2,3]) -> U = [1,1,1,2,3].
 */
 
+lg([],0).
+lg([_|L1],N1) :- lg(L1,N), N1 is N+1.
+
+/*
+lg([a,b,c],2) -> false.
+lg([a,b,c],P) -> P = 3.
+*/
 
 
+/* EXERCICE C */
 
+/* APPARTIENT(X,L) : L'élément X appartient-il à la liste L ? */
+appartient(X,[X|_]).
+appartient(Y,[X|L]) :- X \== Y, appartient(Y,L).
+
+/* NON_APPARTIENT(X,L) : L'élement X n'est-il pas dans la liste L ? */
+non_appartient(X,L) :- not(appartient(X,L)).
+
+/* SANS_REPETITION(L) : La liste L ne contient pas deux fois le meme élément */
+sans_repetition([]).
+sans_repetition([X|L]) :- non_appartient(X,L), sans_repetition(L).
+
+/* AJOUT_TETE(X,L1,L2) : L2 vaut-elle X concaténé à L1 ? */
+ajout_tete(X,L1,L2) :- L2 == [X|L1].
+
+/* AJOUT_QUEUE(X,L1,L2) : L2 vaut-elle L1 concaténée à X ? */
+ajout_queue(X,[],[Y]) :- X == Y.
+ajout_queue(X,[A|L1],[B|L2]) :- A == B, ajout_queue(X,L1,L2).
+
+/* SUPPRIMER(X,L1,L2) : L2 vaut L1 sans la première occurence de X ? */
+supprimer(_,[],[]).
+supprimer(X,[X|L1],L1).
+supprimer(X,[Y|L1],L2) :- X \== Y, ajout_tete(Y,L3,L2), supprimer(X,L1,L3).
