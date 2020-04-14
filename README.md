@@ -9,7 +9,7 @@
 ### [HLIN608](https://github.com/JeanSebastienBach/LesGensBons/tree/master/HLIN608) - Algorithmique du texte
 * [TD1](https://github.com/JeanSebastienBach/LesGensBons/tree/master/HLIN608/TD1) - SSP
 * [TD2](https://github.com/JeanSebastienBach/LesGensBons/tree/master/HLIN608/TD2) - Assemblage
-* [PROJET HAYAAT ET JÉRÉMIE](https://github.com/JeanSebastienBach/LesGensBons/tree/master/HLIN608/Projet_Hayaat_Jeremie) - Assemblage et optimisation
+* [PROJET ASSEMBLAGE](https://github.com/JeanSebastienBach/LesGensBons/tree/master/HLIN608/Projet_Assemblage) - Algorithmes d'assemblage et optimisations
 ### [HLIN611](https://github.com/JeanSebastienBach/LesGensBons/tree/master/HLIN611) - Réseaux
 * [TP1](https://github.com/JeanSebastienBach/LesGensBons/tree/master/HLIN611/TP1) - TCP
 * [TP2](https://github.com/JeanSebastienBach/LesGensBons/tree/master/HLIN611/TP2) - TCP vs UDP (traitement de plusieurs clients)
