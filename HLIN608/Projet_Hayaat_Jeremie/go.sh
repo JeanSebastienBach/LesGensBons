@@ -1,5 +1,5 @@
-# Utilisation : ./go.sh mot1 mot2 mot3 ... motN
+# Utilisation : ./go.sh versionAlgo mot1 mot2 mot3 ... motN
 
 clear
-g++ assemblage.cpp -Wall -o assemblage
-./assemblage $@
+g++ assemblage$1.cpp -Wall -o assemblage$1
+./assemblage$1 ${@:2}
