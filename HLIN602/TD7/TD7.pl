@@ -1,3 +1,5 @@
+/* AUTEURS : HAYAAT HEBIRET ET JEREMIE ROUX */
+
 /* EXERCICE A */
 
 /* HOMME */
@@ -7,7 +9,6 @@ homme(paul).
 homme(bertrand).
 homme(louis).
 homme(benoit).
-/* Vous l'aviez oublié !!!!! */
 homme(edgar).
 
 /* FEMME */
@@ -148,13 +149,57 @@ sans_repetition([]).
 sans_repetition([X|L]) :- non_appartient(X,L), sans_repetition(L).
 
 /* AJOUT_TETE(X,L1,L2) : L2 vaut-elle X concaténé à L1 ? */
-ajout_tete(X,L1,L2) :- L2 == [X|L1].
+ajout_tete(X,L,[X|L]).
 
 /* AJOUT_QUEUE(X,L1,L2) : L2 vaut-elle L1 concaténée à X ? */
-ajout_queue(X,[],[Y]) :- X == Y.
-ajout_queue(X,[A|L1],[B|L2]) :- A == B, ajout_queue(X,L1,L2).
+ajout_queue(X,[],[X]).
+ajout_queue(X,[Y|L1],L2) :- ajout_tete(Y,L3,L2), ajout_queue(X,L1,L3).
 
 /* SUPPRIMER(X,L1,L2) : L2 vaut L1 sans la première occurence de X ? */
 supprimer(_,[],[]).
 supprimer(X,[X|L1],L1).
-supprimer(X,[Y|L1],L2) :- X \== Y, ajout_tete(Y,L3,L2), supprimer(X,L1,L3).
+supprimer(X,[Y|L1],[Z|L2]) :- X \== Y,  Y==Z, supprimer(X,L1,L2).
+supprimer(X,[X],[]).
+
+/* SUPPRIMER_FIN(L1,L2) : L2 vaut L1 sans son dernier élément ? */
+supprimer_fin2([_|L],[]) :- L==[].
+supprimer_fin2([X|L1],[X|L2]) :- supprimer_fin2(L1,L2).
+supprimer_fin(L1,L2) :- (L1==[], L2==[]) ; supprimer_fin2(L1,L2).
+
+/* FUSION(L1,L2,L3) : L3 est une fusion des termes en alternance de L1 et L2 ? */
+fusionD(L1,[X|L2],[Y|L3]) :- X==Y, fusion(L1,L2,L3).
+fusion([],L,L).
+fusion(L,[],L).
+fusion([X|L1],L2,[Y|L3]) :- X==Y, ((L1==[], L2==L3);(L2==[], L1==L3);(fusionD(L1,L2,L3))).
+
+/* CONCATENER(L1,L2,L3) : L3 est une concaténation des éléments de L1 puis de L2 ? */
+concatener([],[],[]).
+concatener(L,[],L).
+concatener([],L,L).
+concatener([X|L1],L2,[Y|L3]) :- X==Y, concatener(L1,L2,L3).
+
+/* INVERSER(L1,L2) : L1 est inversée par rapport à L2 ? */
+inverser([],[]).
+inverser([X|L1],L2) :- inverser(L1,L3), ajout_queue(X,L3,L2).
+
+/* COMMUN(L1,L2,L3) : L3 est la liste qui concatene les ordre de première appartion de L1 puis de L2 ? */
+commun([],[_|_],[]).
+commun([X|L1],L2,L3) :- non_appartient(X,L2),commun(L1,L2,L3).
+commun([X|L1],L2,L3) :- appartient(X,L2),commun(L1,L2,L4),ajout_tete(X,L4,L3).
+commun([_|_],[],[]).
+commun(L1,[Y|L2],L3) :-appartient(Y,L1),commun(L1,L2,L4),ajout_tete(Y,L4,L3).
+commun(L1,[Y|L2],L3) :- non_appartient(Y,L1),commun(L1,L2,L3).
+
+/* ENS(L1,L2) : L2 est obtenue à partir de L1 par suppression de toutes les occurences de sess élément sauf les dernières ? */
+ens([],[]).
+ens([X|L1],L2) :- appartient(X,L1),ens(L1,L2).
+ens([X|L1],L2) :- non_appartient(X,L1),ens(L1,L3),ajout_tete(X,L3,L2).
+
+/* REUNION(L1,L2,L3) : L3 est l'union des élements de L1 et L2 (L1 et L2 sont sans répétition) dans L1 suivie de L2 ? */
+reunion([],L,L).
+reunion(L,[],L).
+reunion(L1,[Y|L2],L3) :- appartient(Y,L1), reunion(L1,L2,L3).
+reunion(L1,[Y|L2],L3) :- non_appartient(Y,L1), ajout_queue(Y,L4,L3), reunion(L1,L2,L4).
+
+/* REUNIONBIS(L1,L2,L3) : L3 est l'union des élements de L1 et L2 (L1 et L2 peuvent être avec répétition) dans L1 suivie de L2 ? */
+reunionbis(L1,L2,L3) :- ens(L1,L1B), ens(L2,L2B), reunion(L1B,L2B,L3).
