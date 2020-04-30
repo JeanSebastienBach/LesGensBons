@@ -29,15 +29,21 @@ int longueurMax(int nbMots, vector<string> T){
 	return l;
 }
 
-// Afficher la liste des mots donnés en entrée
-vector<string> afficher_mots(int nbMots, char *argv[]){
-	cout<<"LISTE DES "<<nbMots<<" MOTS À ASSEMBLER :"<<endl;
+// Récupérer la liste des mots donnés en ligne de commande
+vector<string> recuperer_mots(int nbMots, char *argv[]){
 	vector<string> T;
 	for(int i=1; i<=nbMots; i++){
 		T.push_back(argv[i]);
-		cout<<"   "<<i<<") "<<T[i-1]<<endl;
 	}
 	return T;
+}
+
+// Afficher la liste des mots donnés en entrée
+void afficher_mots(int nbMots, vector<string> T, string description){
+	cout<<"LISTE DES "<<nbMots<<" MOTS "<<description<<" :"<<endl;
+	for(int i=0; i<nbMots; i++){
+		cout<<"   "<<i+1<<") "<<T[i]<<endl;
+	}
 }
 
 // Calculer l'overlap entre deux mots 
@@ -163,18 +169,23 @@ string fusionOverlap(int i, int j, int overlapMaximum, vector<string> T){
 }
 
 int main(int argc, char *argv[]){
-	if(argc==1){
-		cout<<"Il faut au moins un argument"<<endl;
+	if(argc<=1){
+		cout<<"Il faut au moins deux arguments"<<endl;
 	}
 	else{
 
 		int nbMots = argc-1;
-
-		// Afficher la liste des mots donnés en entrée
-		cout<<endl;
-		vector<string> T = afficher_mots(nbMots, argv);
 		string motFusion = "";
+
+		// Récupérer et afficher la liste des mots donnés en entrée
 		cout<<endl;
+		vector<string> T = recuperer_mots(nbMots, argv);
+		afficher_mots(nbMots, T, "RÉCUPÉRÉS");
+		cout<<endl;
+
+		if(nbMots==1){
+			motFusion = T[0];
+		}
 
 		while(nbMots>1){
 
