@@ -298,6 +298,89 @@ string fusionOverlap(int i, int j, int overlapMaximum, vector<string> T){
 	return motFusion;
 }
 
+vector< vector<int> > rangeMatrice(vector< vector<int> > M, int rangY, int rangX,int taille){
+	int buffer = 0;
+	if (rangX > rangY){
+		
+		for(int i=0;i<taille;i++){
+			for(int j=rangY;j<taille-1;j++){
+				if(j<(rangX-1)){
+			 		buffer = M[i][j+1];
+					M[i][j+1] = M[i][j];
+					M[i][j] = buffer;
+		 		}else if(j+2 < taille){
+		 			buffer = M[i][j+2];
+					M[i][j+2] = M[i][j];
+					M[i][j] = buffer;
+		 		}
+			
+			}
+		}
+	
+		for(int i=rangY;i<taille-1;i++){
+			for(int j=0;j<taille;j++){
+			 	if(i<(rangX-1)){
+			 		buffer = M[i+1][j];
+					M[i+1][j] = M[i][j];
+					M[i][j] = buffer;
+				}else if((i+2 < taille)){
+			 		buffer = M[i+2][j];
+					M[i+2][j] = M[i][j];
+					M[i][j] = buffer;
+				}else{
+			 		buffer = M[i+1][j];
+					M[i+1][j] = M[i][j];
+					M[i][j] = buffer;
+			 	}
+				if(i==j){
+					M[i][j]=-1;	
+				}
+			}
+		}
+	}else{
+		for(int i=0;i<taille;i++){
+			for(int j=rangX;j<taille-1;j++){
+				if(j<(rangY-1)){
+			 		buffer = M[i][j+1];
+					M[i][j+1] = M[i][j];
+					M[i][j] = buffer;
+		 		}else if(j+2 < taille){
+		 			buffer = M[i][j+2];
+					M[i][j+2] = M[i][j];
+					M[i][j] = buffer;
+		 		}else if(((((taille-1)-rangX)%2)!=0)||((taille-1)<=3)){
+		 			buffer = M[i][j+1];
+					M[i][j+1] = M[i][j];
+					M[i][j] = buffer;
+		 		}
+			
+			}
+		}
+	
+		for(int i=rangX;i<taille-1;i++){
+			for(int j=0;j<taille;j++){
+			 	if(i<(rangY-1)){
+			 		buffer = M[i+1][j];
+					M[i+1][j] = M[i][j];
+					M[i][j] = buffer;
+				}else if((i+2 < taille)){
+			 		buffer = M[i+2][j];
+					M[i+2][j] = M[i][j];
+					M[i][j] = buffer;
+				}
+				if(i==j){
+					M[i][j]=-1;	
+				}
+			}
+		}
+	}	
+	
+	
+	
+return M;
+}
+
+
 int main(int argc, char *argv[]){
 	if(argc==1){
 		cout<<"Il faut au moins un argument"<<endl;
@@ -329,41 +412,75 @@ int main(int argc, char *argv[]){
 
 		if(nbMots==1){
 			motFusion = T[0];
-		}else{
-
-			vector< vector<int> > M(nbMots, vector<int>(nbMots));
-			M = calculerOverlapM(T,M,nbMots);
-			int ecartAffichage;
 		}
+
+		vector< vector<int> > M(nbMots, vector<int>(nbMots));
+		M = calculerOverlapM(T,M,nbMots);
+		int ecartAffichage;
+		int i,j;
+		int overlapMaximum;
+		
 		while(nbMots>1){
 
 			ecartAffichage = longueurMax(nbMots,T)+3;
 
 			// Parcourir tous les mots, calculer et afficher les overlaps
 			
-			int i,j;
-			int overlapMaximum = overlapMax(M,nbMots,&i,&j);
+			i = 0;
+			j = 0;
+			overlapMaximum = overlapMax(M,nbMots,&i,&j);
+			
+			cout<<"La valeur de i est égale à "<<i<<endl;
+			cout<<"La valeur de j est égale à "<<j<<endl;
+			
 			afficherMatrice(T,M,nbMots,ecartAffichage,overlapMaximum,i,j);
 
 			// Fusionner les overlaps et ajouter le mot fusionné
 			cout<<endl;
 			motFusion = fusionOverlap(i,j,overlapMaximum,T);
 			cout<<endl;
-			
+				M  = rangeMatrice(M,i,j,M.size());
 			if(i>j){
 				T.erase(T.begin()+ i);
-				M.erase(M.begin()+ i);
 				T.erase(T.begin()+ j);
-				M.erase(M.begin()+ j);
-				
-			}
-			else{
+			}else{
 				T.erase(T.begin()+ j);
-				M.erase(M.begin()+ j);
 				T.erase(T.begin()+ i);
-				M.erase(M.begin()+ i);
 			}
+			M.erase(M.end()-1);
 			T.push_back(motFusion);
+			/*for(int z=i;z<M.size()-1;z++){
+					for(int k=0;k<M.size()-1;k++){
+						if(k!=z){
+							if ((k<z)&&(z>=i)){
+								buffer[k] = M[z][k];
+								M[z][k]= M[z+1][k];
+								M[z+1][k]= buffer[k];
+							}else {
+								buffer[k] = M[z][k];
+								M[z][k]= M[z+1][k+1];
+								M[z+1][k+1]= buffer[k];
+							}
+						}
+						
+					}
+				}
+				for(int z=j;z<M.size()-2;z++){
+					for(int k=0;k<M.size()-1;k++){
+						if(k!=z){
+							if ((k<z)&&(z>=i)){
+								buffer[k] = M[z][k];
+								M[z][k]= M[z+1][k];
+								M[z+1][k]= buffer[k];
+							}else {
+								buffer[k] = M[z][k];
+								M[z][k]= M[z+1][k+1];
+								M[z+1][k+1]= buffer[k];
+							}
+						}
+						
+					}
+				}*/
 			nbMots--;
 			
 		}
