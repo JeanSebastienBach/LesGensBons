@@ -1,2 +1,1 @@
-type((fun x y -> x + y) 1);;
-
+(fun x y -> x + y) 1;;
