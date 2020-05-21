@@ -231,12 +231,13 @@ string reconstructionSuperChaine(vector<int> &tab,vector<string> T){
 			}
 		}
 	}
+
 	return resultat;
 }
 
-void calculMin(vector<string> T,vector<int> tab,int profondeur,int &minLocal,string &resMax,string &res){
+void calculMin(vector<string> T,vector<int> &tab,int profondeur,int &minLocal,string &resMax,string &res){
 
-	bool possible = true;
+	bool possible;
 	for(int p=profondeur;p<T.size();p++){	
 		tab[p]=-1;
 	}
@@ -251,8 +252,7 @@ void calculMin(vector<string> T,vector<int> tab,int profondeur,int &minLocal,str
 		}
 		if(possible){
 			tab[profondeur]=i;
-			vector<int> choixMinLocal;
-			if (profondeur < (T.size()-2)){
+			if (profondeur < (T.size()-1)){
 				profondeur++;
 				calculMin(T,tab,profondeur,minLocal,resMax,res);
 			}else{
@@ -266,6 +266,10 @@ void calculMin(vector<string> T,vector<int> tab,int profondeur,int &minLocal,str
 				resMax = res;
 			}
 		}
+	}
+
+	for(int g=0;g<tab.size();g++){
+		tab[g]=-1;
 	}
 }
 
@@ -292,11 +296,11 @@ int main(int argc, char *argv[]){
 		}
 		int minLocal = 99999;
 		string res ="";
-		vector<int> choixMin(nbMots);
+		vector<int> choixMin;
 		
 		//remplir les nbMots avec des -1
 		for(int i=0;i<T.size();i++){
-			choixMin[i]=-1;
+			choixMin.push_back(-1);
 		}
 		
 		calculMin(T,choixMin,0,minLocal,motFusion,res);
